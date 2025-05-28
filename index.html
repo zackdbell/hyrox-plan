@@ -7,8 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Visualization & Content Choices:
-        1. Daily Workout Details: Report Info: Specific exercises, sets, reps, notes per day. Goal: Present daily training instructions with Marchon's distinct visual clarity. Viz/Presentation: Custom HTML structure with lettered circular badges, vertical connecting lines, and bold exercise names. Interaction: Click to expand/collapse Warm-up, Strength, Accessory, Conditioning, Cooldown sections, revealing details. Justification: Directly emulates Marchon's "EXAMPLE DAY" format, providing a highly organized and visually appealing way to consume workout information. Method: Vanilla JS for accordion logic and dynamic rendering of structured HTML.
-        2. Navigation: Report Info: Multiple days. Goal: Allow easy switching between daily plans. Viz/Presentation: Tab-like buttons (Custom CSS with Marchon-inspired classes). Interaction: Click to change displayed content. Justification: Standard and intuitive SPA navigation, styled for a minimalist and modern feel. Method: Vanilla JS.
+        1. Weekly Navigation: Report Info: Multiple weeks of training. Goal: Allow easy switching between weeks and highlight current week. Viz/Presentation: Tab-like buttons for each week (Custom CSS). Interaction: Click to change displayed week. Automatic highlighting of current week based on date. Justification: Provides clear progression and navigation through the program. Method: Vanilla JS for dynamic button generation and date-based logic.
+        2. Daily Navigation: Report Info: Multiple days within each week. Goal: Allow easy switching between days. Viz/Presentation: Tab-like buttons for each day (Custom CSS). Interaction: Click to change displayed day. Justification: Enhances usability by allowing granular control over daily workout viewing. Method: Vanilla JS.
+        3. Daily Workout Details: Report Info: Specific exercises, sets, reps, notes per day. Goal: Present daily training instructions with Marchon's distinct visual clarity. Viz/Presentation: Custom HTML structure with lettered circular badges, vertical connecting lines, and bold exercise names. Interaction: Click to expand/collapse Warm-up, Strength, Accessory, Conditioning, Cooldown sections, revealing details. Justification: Directly emulates Marchon's "EXAMPLE DAY" format, providing a highly organized and visually appealing way to consume workout information. Method: Vanilla JS for accordion logic and dynamic rendering of structured HTML.
     -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap');
@@ -61,6 +62,16 @@
             gap: 10px; /* Space between buttons */
             margin-bottom: 20px;
             flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+        
+        .marchon-day-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 8px; /* Slightly smaller gap for day buttons */
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-top: 1px solid #eee; /* Separator from week nav */
+            padding-top: 15px;
         }
 
         .marchon-nav-button {
@@ -300,12 +311,10 @@
         </header>
 
         <nav id="navigation" class="marchon-navigation">
-            <button data-target="dayDetailSection" data-day="0" class="marchon-nav-button active">Day 1</button>
-            <button data-target="dayDetailSection" data-day="1" class="marchon-nav-button">Day 2</button>
-            <button data-target="dayDetailSection" data-day="2" class="marchon-nav-button">Day 3</button>
-            <button data-target="dayDetailSection" data-day="3" class="marchon-nav-button">Day 4</button>
-            <button data-target="dayDetailSection" data-day="4" class="marchon-nav-button">Day 5</button>
-        </nav>
+            </nav>
+
+        <nav id="dayNavigation" class="marchon-day-navigation">
+            </nav>
 
         <main id="contentArea" class="marchon-main-content">
             <div id="dayDetailSection">
@@ -318,277 +327,837 @@
     </div>
 
     <script>
-        const week2Data = {
-            title: "Hybrid Training",
-            days: [
-                {
-                    id: "day1",
-                    title: "Day 1 – Strength and Conditioning",
-                    focus: "Full Body Power",
-                    introduction: "Day 1 focuses on developing full body power with a Power Clean primary lift, followed by a comprehensive accessory circuit and a challenging conditioning piece to build strength and work capacity. Aim for explosive movements in your lifts and maintain a strong, consistent pace in the conditioning.",
-                    sections: [
-                        {
-                            type: "warmUp",
-                            title: "Warm-Up (12–15 min)",
-                            items: [
-                                "Dynamic Leg Swings (forward/backward, lateral) – 10/leg each direction",
-                                "Cat-Cow + Thoracic Rotations – 8 reps each",
-                                "Spiderman Lunge with Thoracic Reach – 5/side",
-                                "Cossack Squats – 5/side",
-                                "Assault Bike – 3 min (build effort)",
-                                "Barbell RDL (empty bar) – 8 reps",
-                                "3 Power Cleans (light) + 5 Push Jerks (light) – 2 sets"
-                            ]
-                        },
-                        {
-                            type: "strength",
-                            title: "Strength Superset (5 Rounds)",
-                            details: "Rest 2 minutes",
-                            exercises: [
-                                { name: "1A. Power Clean", details: "2 reps @ 75–85% 1RM (focus on speed under the bar)" },
-                                { name: "1B. Strict Pull-Ups", details: "5–7 reps (add weight if possible)" }
-                            ]
-                        },
-                        {
-                            type: "accessory",
-                            title: "Accessory Triset (3 Rounds)",
-                            details: "Rest 90 seconds",
-                            exercises: [
-                                { name: "1A. Dumbbell Snatch (alternating)", details: "8/arm (focus on powerful hip drive)" },
-                                { name: "1B. Single-Arm Dumbbell Row", details: "10/arm (controlled eccentric)" },
-                                { name: "1C. Farmers Carry (heavy DBs)", details: "50m (maintain upright posture, brace core)" }
-                            ]
-                        },
-                        {
-                            type: "conditioning",
-                            title: "Conditioning – 3 Rounds for Time",
-                            details: "(Pacing: Consistent, controlled effort. Avoid redlining early.)",
-                            items: [
-                                "400m Run",
-                                "15 Wall Balls (20/14 lb)",
-                                "200m Ski Erg",
-                                "10 Burpee Over Rower",
-                                "50m Sled Pull (moderate-heavy)",
-                                "10 Toes-to-Bar"
-                            ]
-                        },
-                        {
-                            type: "cooldown",
-                            title: "Cooldown",
-                            items: [
-                                "2 min Rower (flush)",
-                                "Pigeon Stretch – 60 sec/side",
-                                "Foam Roll Glutes, Hamstrings, Upper Back – 5 min",
-                                "Diaphragmatic Breathing – 2 min"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "day2",
-                    title: "Day 2 – Running (VO2 Max Intervals)",
-                    focus: "VO2 Max Intervals",
-                    introduction: "Day 2 is dedicated to improving VO2 max through high-intensity running intervals. The session is structured with specific work and rest periods to push your aerobic and anaerobic thresholds. Focus on hitting your target paces and using the recovery periods effectively.",
-                    sections: [
-                        {
-                            type: "warmUp",
-                            title: "Warm-Up",
-                            items: [
-                                "8 min easy jog",
-                                "Dynamic Drills (2 Rounds):",
-                                "  ◦ 15 High Knees",
-                                "  ◦ 15 Butt Kicks",
-                                "  ◦ 10 Walking Quad Stretch",
-                                "  ◦ 10 Walking Hamstring Scoop",
-                                "4x Strides @ 80–90% effort (focus on quick turnover)"
-                            ]
-                        },
-                        {
-                            type: "mainSet",
-                            title: "Main Set",
-                            details: "",
-                            exercises: [
-                                { name: "6x 400m Run @ 90–95% effort", details: "(aim for consistent splits)<br>◦ Rest 400m walk recovery (active recovery)" },
-                                { name: "4x 200m Run @ near maximal effort", details: "◦ Rest 200m walk recovery" }
-                            ]
-                        },
-                        {
-                            type: "cooldown",
-                            title: "Cooldown",
-                            items: [
-                                "5 min jog",
-                                "Standing Calf Stretch – 45 sec/leg",
-                                "Figure-Four Stretch – 60 sec/side"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "day3",
-                    title: "Day 3 – Strength and Conditioning",
-                    focus: "Lower Body Strength & Endurance",
-                    introduction: "Day 3 targets lower body strength with Back Squats as the primary lift, complemented by accessory work for endurance and a challenging AMRAP to test grit and pacing under fatigue. Maintain quality of movement, especially as fatigue sets in during the AMRAP.",
-                    sections: [
-                        {
-                            type: "warmUp",
-                            title: "Warm-Up",
-                            items: [
-                                "5 min easy Row",
-                                "3 Rounds:",
-                                "  ◦ 8 Goblet Squats",
-                                "  ◦ 6 Cossack Squats/side",
-                                "  ◦ 10 Banded Glute Bridges",
-                                "  ◦ 10 Good Mornings (empty bar)",
-                                "3x3 Back Squat build-up to working weight"
-                            ]
-                        },
-                        {
-                            type: "strength",
-                            title: "Strength (4 Sets)",
-                            details: "Rest 2 minutes",
-                            exercises: [
-                                { name: "Back Squat", details: "5 reps @ 75–82% 1RM (focus on depth and control)" }
-                            ]
-                        },
-                        {
-                            type: "accessory",
-                            title: "Accessory Triset (3 Rounds)",
-                            details: "Rest 90 seconds",
-                            exercises: [
-                                { name: "1A. Bulgarian Split Squat (DBs)", details: "8/leg (controlled descent, powerful drive)" },
-                                { name: "1B. Glute Ham Raise or Nordic Curl", details: "8–10 reps (maintain tension, full range)" },
-                                { name: "1C. Hollow Body Hold", details: "45–60 sec (brace core, lower back pressed to floor)" }
-                            ]
-                        },
-                        {
-                            type: "conditioning",
-                            title: "Conditioning – AMRAP 18",
-                            details: "(Pacing: Sustainable, grinding effort. Maintain movement quality.)",
-                            items: [
-                                "10 Sandbag Over Shoulder (moderate-heavy)",
-                                "10 Box Jumps (24/20 inch)",
-                                "15/12 Cal Assault Bike",
-                                "50m Sled Push (heavy)",
-                                "8 Burpee Box Jump Overs"
-                            ]
-                        },
-                        {
-                            type: "cooldown",
-                            title: "Cooldown",
-                            items: [
-                                "5 min easy walk",
-                                "Couch Stretch – 90 sec/side",
-                                "Foam Roll Quads, IT Band, Calves – 5 min"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "day4",
-                    title: "Day 4 – Running (Hybrid Endurance)",
-                    focus: "Hybrid Endurance",
-                    introduction: "Day 4 focuses on building hybrid endurance by combining running with other key Hyrox modalities like rowing, skiing, and biking in a continuous effort session. The main goal is to practice smooth transitions between modalities and maintain a steady, sustainable pace throughout.",
-                    sections: [
-                        {
-                            type: "warmUp",
-                            title: "Warm-Up",
-                            items: [
-                                "8 min easy jog",
-                                "Dynamic Prep:",
-                                "  ◦ 10 Walking Lunges with overhead reach",
-                                "  ◦ 10 Leg Swings (forward/backward)",
-                                "  ◦ 10 Arm Circles (forward/backward)",
-                                "3x Strides @ 70–80% effort"
-                            ]
-                        },
-                        {
-                            type: "mainSet",
-                            title: "Main Set – Continuous Effort (35–40 min)",
-                            details: "Perform the following sequence, moving directly from one modality to the next.<br><em>Intent: Build sustained aerobic capacity across multiple Hyrox modalities. Focus on efficient transitions.</em>",
-                            items: [
-                                "5 min Run (Zone 2-3 pace)",
-                                "5 min Rower (Zone 2-3 pace)",
-                                "5 min Ski Erg (Zone 2-3 pace)",
-                                "5 min Run (Zone 2-3 pace)",
-                                "5 min Assault Bike (Zone 2-3 pace)",
-                                "Repeat sequence if time allows, or finish with a final 5-10 min run."
-                            ]
-                        },
-                        {
-                            type: "cooldown",
-                            title: "Cooldown",
-                            items: [
-                                "5 min jog",
-                                "Standing Calf Stretch – 45 sec/leg",
-                                "Figure-Four Stretch – 60 sec/side"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "day5",
-                    title: "Day 5 – Strength and Conditioning",
-                    focus: "Upper Body & Anaerobic Capacity",
-                    introduction: "Day 5 targets upper body strength with the Push Press and builds anaerobic capacity through a high-intensity EMOM. The session is designed to push your limits while maintaining good form. Focus on explosive power in the press and quick transitions in the EMOM.",
-                    sections: [
-                        {
-                            type: "warmUp",
-                            title: "Warm-Up (15 min)",
-                            items: [
-                                "5 min easy Rower",
-                                "3 Rounds:",
-                                "  ◦ 10 Band Pull-Aparts",
-                                "  ◦ 8 Scapular Push-Ups",
-                                "  ◦ 6 Tall Kneeling Single-Arm Kettlebell Press/side",
-                                "  ◦ 8 DB Bench Press (light)",
-                                "3x3 Push Press build-up to working weight"
-                            ]
-                        },
-                        {
-                            type: "strength",
-                            title: "Strength Superset (4 Rounds)",
-                            details: "Rest 90–120 sec",
-                            exercises: [
-                                { name: "1A. Push Press", details: "4 reps @ 75–85% 1RM (explosive drive, strong lockout)" },
-                                { name: "1B. Pendlay Row (Barbell)", details: "8–10 reps (strict form, chest to floor)" }
-                            ]
-                        },
-                        {
-                            type: "accessory",
-                            title: "Accessory Triset (3 Rounds)",
-                            details: "Rest 60 seconds",
-                            exercises: [
-                                { name: "1A. Dumbbell Z Press", details: "8 reps (seated, no leg drive, focus on shoulder stability)" },
-                                { name: "1B. Ring Rows (feet elevated if possible)", details: "12–15 reps (full extension, chest to rings)" },
-                                { name: "1C. Overhead Dumbbell Carry", details: "40m (maintain rigid core, stable shoulder)" }
-                            ]
-                        },
-                        {
-                            type: "conditioning",
-                            title: "Conditioning – EMOM 21 (7 Rounds)",
-                            details: "(Pacing: High intensity, short recovery. Push hard each minute.)",
-                            items: [
-                                "Min 1: 12 Burpee Box Jump Overs (24/20 inch)",
-                                "Min 2: 15/12 Cal Ski Erg",
-                                "Min 3: 10 Push-Ups + 10 Kettlebell Swings (moderate)"
-                            ]
-                        },
-                        {
-                            type: "cooldown",
-                            title: "Cooldown",
-                            items: [
-                                "Pec Stretch (doorway or floor) – 90 sec/side",
-                                "Lat Foam Roll – 2 min/side",
-                                "Child's Pose with Lateral Reach – 60 sec/side"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        };
+        const programStartDate = new Date('2025-06-02T00:00:00'); // Program starts June 2, 2025
+
+        const programWeeks = [
+            // Week 1 Data (Provided by user)
+            {
+                title: "Week 1",
+                days: [
+                    {
+                        id: "day1",
+                        title: "Day 1 – Strength + Conditioning (Full Body)",
+                        focus: "Foundational Strength",
+                        introduction: "Week 1 begins with foundational strength work to build a solid base. Focus on mastering movement patterns before increasing load. This session combines strength with light conditioning to introduce work capacity.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up (12–15 min)",
+                                items: [
+                                    "Jumping Jacks – 30 sec",
+                                    "Inchworm to Push-Up – 6 reps",
+                                    "Air Squats – 15 reps",
+                                    "Band Pull-Aparts – 15 reps",
+                                    "Wall Ball Squat to Press (light) – 10 reps",
+                                    "Assault Bike – 2 min (build effort)",
+                                    "3 Hang Power Cleans (light) + 10 Kip Swings – 2 sets"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength Superset (5 Rounds)",
+                                details: "Rest 2 minutes",
+                                exercises: [
+                                    { name: "1A. Power Clean", details: "3 reps @ 70–80% 1RM" },
+                                    { name: "1B. Weighted Pull-Ups", details: "6–8 reps" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Accessory Superset (3 Rounds)",
+                                details: "Rest 90 seconds",
+                                exercises: [
+                                    { name: "1A. DB Front Rack Walking Lunge", details: "10/leg" },
+                                    { name: "1B. Barbell RDL", details: "10 reps" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "Conditioning – 2 Rounds for Time",
+                                details: "(Pacing: Consistent, controlled effort)",
+                                items: [
+                                    "500m Row",
+                                    "10 Wall Balls (20/14 lb)",
+                                    "50m Sled Push (moderate)",
+                                    "10 DB Deadlifts (50/35)",
+                                    "200m Run",
+                                    "10 Burpee Broad Jumps",
+                                    "15 Cal Assault Bike",
+                                    "5 Pull-Ups or 3 Chest-to-Bar"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "2 min Assault Bike (flush)",
+                                    "Hamstring Stretch – 45 sec/leg",
+                                    "Foam Roll Lats, Calves, Quads – 5 min",
+                                    "Box Breathing – 2 min"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day2",
+                        title: "Day 2 – Running (Aerobic Threshold)",
+                        focus: "Aerobic Capacity",
+                        introduction: "Day 2 is focused on building your aerobic base with a steady-state run. Maintain a conversational pace throughout the duration. This session is about accumulating time under tension for your cardiovascular system.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "5 min easy jog",
+                                    "2 Rounds:",
+                                    "  ◦ 10 High Knees",
+                                    "  ◦ 10 Butt Kicks",
+                                    "  ◦ 10 Leg Swings each way",
+                                    "  ◦ 10 Walking Lunges",
+                                    "3x Strides @ 70–80% effort"
+                                ]
+                            },
+                            {
+                                type: "mainSet",
+                                title: "Main Set",
+                                details: "",
+                                exercises: [
+                                    { name: "3x 2k @ Zone 3 aerobic pace", details: "Rest 2 min walk between" },
+                                    { name: "6x 200m strides @ 80–85% effort", details: "Walk recovery" }
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min jog",
+                                    "Quad Stretch + Forward Fold – 1 min each"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day3",
+                        title: "Day 3 – Strength + Conditioning (Lower Body + Core)",
+                        focus: "Lower Body Strength & Endurance",
+                        introduction: "Day 3 targets lower body strength and core stability. Focus on controlled movements and engaging the core throughout each exercise. The conditioning piece will challenge your anaerobic endurance.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "3 Rounds:",
+                                    "  ◦ 8 KB Deadlifts",
+                                    "  ◦ 6 Reverse Lunges/leg",
+                                    "  ◦ 10 Band Walks",
+                                    "  ◦ 10 Air Squats + 5 Jump Squats",
+                                    "  ◦ 1 min Row",
+                                    "3x3 Back Squat build-up"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength (4 Sets)",
+                                details: "Rest 2 minutes",
+                                exercises: [
+                                    { name: "Back Squat", details: "6 reps @ 72–78% 1RM" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Accessory (3 Rounds)",
+                                details: "Rest 60 sec",
+                                exercises: [
+                                    { name: "1A. DB Step-Ups", details: "10/leg" },
+                                    { name: "1B. Barbell Hip Thrust", details: "12 reps" },
+                                    { name: "1C. Hanging Knee Raises", details: "15 reps" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "Conditioning – AMRAP 15",
+                                details: "(Pacing: Sustainable, grinding effort)",
+                                items: [
+                                    "12 Wall Balls (20/14)",
+                                    "10 Box Jump Overs",
+                                    "8 DB Power Cleans (50/35)",
+                                    "100m Run"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min walk",
+                                    "Couch Stretch + Quad Roll"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day4",
+                        title: "Day 4 – Running (Threshold Intervals)",
+                        focus: "Lactate Threshold",
+                        introduction: "Day 4 introduces threshold intervals to improve your lactate threshold. These are sustained efforts at a challenging but manageable pace. Focus on consistent pacing and controlled breathing.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "5 min jog",
+                                    "Dynamic Prep:",
+                                    "  ◦ 10 High Knees",
+                                    "  ◦ 10 Leg Swings",
+                                    "  ◦ 10 Walking Lunge + Reach",
+                                    "3x Strides @ 75–85%"
+                                ]
+                            },
+                            {
+                                type: "mainSet",
+                                title: "Main Set",
+                                details: "",
+                                exercises: [
+                                    { name: "4x800m @ tempo pace", details: "Rest 90 sec" },
+                                    { name: "4x400m @ fast pace", details: "Rest 60 sec" }
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "Jog 5 min",
+                                    "Stretch calves, hips, quads"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day5",
+                        title: "Day 5 – Strength + Conditioning (Upper Body Focus)",
+                        focus: "Upper Body Strength & Power",
+                        introduction: "Day 5 targets upper body strength and power. Focus on explosive execution of the primary lift and controlled strength for accessory work. The conditioning piece will challenge your anaerobic capacity.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up (15 min)",
+                                items: [
+                                    "3 Rounds:",
+                                    "  ◦ 10 Cal Bike",
+                                    "  ◦ 10 Band Pull-Aparts",
+                                    "  ◦ 10 Scap Push-Ups",
+                                    "  ◦ 8 DB Floor Press",
+                                    "  ◦ 6 Tall Kneeling Presses",
+                                    "3x3 Push Press build-up to working weight"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength Superset (4 Rounds)",
+                                details: "Rest 90–120 sec",
+                                exercises: [
+                                    { name: "1A. Push Press", details: "5 reps @ 70–80% 1RM" },
+                                    { name: "1B. Weighted Pull-Ups", details: "6–8 reps" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Triset (3 Rounds)",
+                                details: "",
+                                exercises: [
+                                    { name: "1A. DB Z Press", details: "8–10 reps" },
+                                    { name: "1B. Incline DB Row", details: "12 reps" },
+                                    { name: "1C. Ring or TRX Push-Ups", details: "12–15 reps" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "EMOM 18 (3 Rounds)",
+                                details: "(Pacing: High intensity, short recovery)",
+                                items: [
+                                    "Min 1: 15/12 Cal Row",
+                                    "Min 2: 10 DB Thrusters (50/35)",
+                                    "Min 3: 10 Burpees Over DBs"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "Pec Stretch – 1 min",
+                                    "Lat Foam Roll – 2 min"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day6",
+                        title: "Day 6 – Running (Simulation + Volume)",
+                        focus: "Race Simulation",
+                        introduction: "Day 6 combines race simulation elements with sustained running volume. Focus on smooth transitions and maintaining a consistent effort across modalities.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "5 min jog",
+                                    "2 Rounds:",
+                                    "  ◦ 10 Walking Lunges",
+                                    "  ◦ 10 Arm Swings",
+                                    "  ◦ 10 Leg Swings",
+                                    "3x Strides @ 80%"
+                                ]
+                            },
+                            {
+                                type: "mainSet",
+                                title: "Main Set – For Time",
+                                details: "",
+                                items: [
+                                    "1k Run",
+                                    "1k Row",
+                                    "50 Wall Balls",
+                                    "1k Run",
+                                    "50m Sled Push",
+                                    "50m Sled Pull",
+                                    "1k Run"
+                                ]
+                            },
+                            {
+                                type: "finisher",
+                                title: "Finisher",
+                                details: "",
+                                exercises: [
+                                    { name: "3x 500m Run @ goal pace", details: "Rest 90 sec walk" }
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min walk",
+                                    "Glute + Calf Roll",
+                                    "Pigeon Stretch – 1 min/side"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            // Week 2 Data (Detailed & Progressive)
+            {
+                title: "Week 2",
+                days: [
+                    {
+                        id: "day1",
+                        title: "Day 1 – Strength + Conditioning (Full Body Power)",
+                        focus: "Explosive Strength & Work Capacity",
+                        introduction: "Building on Week 1, this session increases the complexity of the Power Clean and introduces a more demanding conditioning circuit. Focus on explosive power and maintaining high output under fatigue.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up (12–15 min)",
+                                items: [
+                                    "Dynamic Leg Swings (forward/backward, lateral) – 10/leg each direction",
+                                    "Cat-Cow + Thoracic Rotations – 8 reps each",
+                                    "Spiderman Lunge with Thoracic Reach – 5/side",
+                                    "Cossack Squats – 5/side",
+                                    "Assault Bike – 3 min (build effort)",
+                                    "Barbell RDL (empty bar) – 8 reps",
+                                    "3 Hang Power Clean + 1 Front Squat (light) – 2 sets"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength Complex (4 Rounds)",
+                                details: "Rest 2.5 minutes between rounds. Focus on seamless transitions.",
+                                exercises: [
+                                    { name: "1A. Power Clean + Front Squat + Push Jerk", details: "1+1+1 reps @ 75% of Week 1 Power Clean 1RM" },
+                                    { name: "1B. Strict Chest-to-Bar Pull-Ups", details: "4-6 reps (or weighted pull-ups if proficient)" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Accessory Superset (3 Rounds)",
+                                details: "Rest 90 seconds. Control the eccentric phase.",
+                                exercises: [
+                                    { name: "1A. Single-Arm Dumbbell Snatch", details: "6/arm (explosive hip drive)" },
+                                    { name: "1B. Deficit Push-Ups", details: "Max reps (hands on dumbbells/plates)" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "Conditioning – 3 Rounds for Time",
+                                details: "(Pacing: Aggressive but sustainable. Avoid redlining early.)",
+                                items: [
+                                    "400m Run",
+                                    "15 Wall Balls (20/14 lb)",
+                                    "200m Ski Erg",
+                                    "10 Burpee Over Rower",
+                                    "50m Sled Pull (moderate-heavy)",
+                                    "10 Toes-to-Bar"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "2 min Rower (flush)",
+                                    "Pigeon Stretch – 60 sec/side",
+                                    "Foam Roll Glutes, Hamstrings, Upper Back – 5 min",
+                                    "Diaphragmatic Breathing – 2 min"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day2",
+                        title: "Day 2 – Running (VO2 Max Intervals)",
+                        focus: "Speed Endurance & Lactate Tolerance",
+                        introduction: "This session pushes your VO2 max and lactate tolerance. The goal is to hit consistent, hard efforts with controlled recovery. Focus on maintaining form as fatigue builds.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "8 min easy jog",
+                                    "Dynamic Drills (2 Rounds):",
+                                    "  ◦ 15 High Knees",
+                                    "  ◦ 15 Butt Kicks",
+                                    "  ◦ 10 Walking Quad Stretch",
+                                    "  ◦ 10 Walking Hamstring Scoop",
+                                    "4x Strides @ 80–90% effort (focus on quick turnover)"
+                                ]
+                            },
+                            {
+                                type: "mainSet",
+                                title: "Main Set – Interval Progression",
+                                details: "Focus on consistent pacing for each interval. Active recovery is key.",
+                                exercises: [
+                                    { name: "5x 600m Run @ 90% effort", details: "Rest 1:1 work/rest ratio (walk recovery)" },
+                                    { name: "3x 300m Run @ near maximal effort", details: "Rest 1:2 work/rest ratio (walk recovery)" }
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min jog",
+                                    "Standing Calf Stretch – 45 sec/leg",
+                                    "Figure-Four Stretch – 60 sec/side"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day3",
+                        title: "Day 3 – Strength + Conditioning (Lower Body Strength & Endurance)",
+                        focus: "Leg Drive & Muscular Stamina",
+                        introduction: "Building on Week 1's Back Squat, this session increases load and endurance. The conditioning piece integrates more Hyrox-specific leg-dominant movements to build stamina.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "5 min easy Rower",
+                                    "3 Rounds:",
+                                    "  ◦ 8 Goblet Squats",
+                                    "  ◦ 6 Cossack Squats/side",
+                                    "  ◦ 10 Banded Glute Bridges",
+                                    "  ◦ 10 Good Mornings (empty bar)",
+                                    "3x3 Back Squat build-up to working weight"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength (4 Sets)",
+                                details: "Rest 2 minutes. Focus on depth and powerful ascent.",
+                                exercises: [
+                                    { name: "Back Squat", details: "5 reps @ 78–85% 1RM (from Week 1 1RM)" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Accessory Triset (3 Rounds)",
+                                details: "Rest 90 seconds. Controlled eccentric for hamstring focus.",
+                                exercises: [
+                                    { name: "1A. Bulgarian Split Squat (DBs)", details: "8/leg (controlled descent, powerful drive)" },
+                                    { name: "1B. Glute Ham Raise or Nordic Curl", details: "8–10 reps (maintain tension, full range)" },
+                                    { name: "1C. Hollow Body Hold", details: "45–60 sec (brace core, lower back pressed to floor)" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "Conditioning – AMRAP 18",
+                                details: "(Pacing: Sustainable, grinding effort. Maintain movement quality.)",
+                                items: [
+                                    "10 Sandbag Over Shoulder (moderate-heavy)",
+                                    "10 Box Jumps (24/20 inch)",
+                                    "15/12 Cal Assault Bike",
+                                    "50m Sled Push (heavy)",
+                                    "8 Burpee Box Jump Overs"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min easy walk",
+                                    "Couch Stretch – 90 sec/side",
+                                    "Foam Roll Quads, IT Band, Calves – 5 min"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day4",
+                        title: "Day 4 – Running (Hybrid Endurance Progression)",
+                        focus: "Sustained Mixed Modality Effort",
+                        introduction: "This session builds on Week 1's hybrid endurance, increasing duration and intensity across different Hyrox modalities. Focus on efficient transitions and maintaining a strong, consistent pace.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up",
+                                items: [
+                                    "8 min easy jog",
+                                    "Dynamic Prep:",
+                                    "  ◦ 10 Walking Lunges with overhead reach",
+                                    "  ◦ 10 Leg Swings (forward/backward)",
+                                    "  ◦ 10 Arm Circles (forward/backward)",
+                                    "3x Strides @ 70–80% effort"
+                                ]
+                            },
+                            {
+                                type: "mainSet",
+                                title: "Main Set – Continuous Effort (45–55 min)",
+                                details: "Perform the following sequence, moving directly from one modality to the next. Intent: Build sustained aerobic capacity across multiple Hyrox modalities. Focus on efficient transitions.",
+                                items: [
+                                    "10 min Run (Zone 2-3 pace)",
+                                    "10 min Rower (Zone 2-3 pace)",
+                                    "10 min Ski Erg (Zone 2-3 pace)",
+                                    "10 min Run (Zone 2-3 pace)",
+                                    "5-15 min Assault Bike (Zone 2-3 pace, use remaining time)"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "5 min easy jog/walk",
+                                    "Dynamic Hip Flexor Stretch – 60 sec/side",
+                                    "Seated Forward Fold – 90 sec"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: "day5",
+                        title: "Day 5 – Strength + Conditioning (Upper Body & Anaerobic Capacity)",
+                        focus: "Overhead Power & High-Intensity Output",
+                        introduction: "This session targets overhead power and anaerobic capacity. The Push Press will be challenged with higher loads, and the conditioning piece demands consistent high output in a varied EMOM.",
+                        sections: [
+                            {
+                                type: "warmUp",
+                                title: "Warm-Up (15 min)",
+                                items: [
+                                    "5 min easy Rower",
+                                    "3 Rounds:",
+                                    "  ◦ 10 Band Pull-Aparts",
+                                    "  ◦ 8 Scapular Push-Ups",
+                                    "  ◦ 6 Tall Kneeling Single-Arm Kettlebell Press/side",
+                                    "  ◦ 8 DB Bench Press (light)",
+                                    "3x3 Push Press build-up to working weight"
+                                ]
+                            },
+                            {
+                                type: "strength",
+                                title: "Strength Superset (4 Rounds)",
+                                details: "Rest 90–120 sec. Focus on explosive drive and strong lockout.",
+                                exercises: [
+                                    { name: "1A. Push Press", details: "4 reps @ 75–85% 1RM (from Week 1 1RM)" },
+                                    { name: "1B. Pendlay Row (Barbell)", details: "8–10 reps (strict form, chest to floor)" }
+                                ]
+                            },
+                            {
+                                type: "accessory",
+                                title: "Accessory Triset (3 Rounds)",
+                                details: "Rest 60 seconds. Maintain core tension throughout.",
+                                exercises: [
+                                    { name: "1A. Dumbbell Z Press", details: "8 reps (seated, no leg drive, focus on shoulder stability)" },
+                                    { name: "1B. Ring Rows (feet elevated if possible)", details: "12–15 reps (full extension, chest to rings)" },
+                                    { name: "1C. Overhead Dumbbell Carry", details: "40m (maintain rigid core, stable shoulder)" }
+                                ]
+                            },
+                            {
+                                type: "conditioning",
+                                title: "Conditioning – EMOM 21 (7 Rounds)",
+                                details: "(Pacing: High intensity, short recovery. Push hard each minute.)",
+                                items: [
+                                    "Min 1: 12 Burpee Box Jump Overs (24/20 inch)",
+                                    "Min 2: 15/12 Cal Ski Erg",
+                                    "Min 3: 10 Push-Ups + 10 Kettlebell Swings (moderate)"
+                                ]
+                            },
+                            {
+                                type: "cooldown",
+                                title: "Cooldown",
+                                items: [
+                                    "Pec Stretch (doorway or floor) – 90 sec/side",
+                                    "Lat Foam Roll – 2 min/side",
+                                    "Child's Pose with Lateral Reach – 60 sec/side"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            // Week 3 Data (Detailed & Progressive)
+            {
+                title: "Week 3",
+                days: [
+                    {
+                        id: "day1",
+                        title: "Day 1 – Strength + Conditioning (Full Body Endurance)",
+                        focus: "Muscular Stamina & Aerobic Power",
+                        introduction: "This session builds full-body muscular endurance and aerobic power. The strength portion focuses on higher volume, while the conditioning piece integrates a longer, more demanding circuit.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10-12 min)", items: ["Dynamic mobility drills", "Light cardio (row/bike)", "Movement prep for thrusters/pulls"] },
+                            { type: "strength", title: "Strength Superset (4 Rounds)", details: "Rest 90 seconds. Focus on consistent pacing and form.", exercises: [{ name: "1A. Dumbbell Thruster", details: "8-10 reps (moderate weight)" }, { name: "1B. Strict Pull-Ups", details: "Max reps - 2 (or weighted if proficient)" }] },
+                            { type: "accessory", title: "Accessory Triset (3 Rounds)", details: "Rest 60 seconds. Maintain core stability.", exercises: [{ name: "1A. Single-Arm Dumbbell Row", details: "10/arm (controlled eccentric)" }, { name: "1B. Plank with Shoulder Taps", details: "12-15/side" }, { name: "1C. Reverse Lunges (bodyweight)", details: "10/leg" }] },
+                            { type: "conditioning", title: "Conditioning – 3 Rounds for Time", details: "(Pacing: Steady, consistent effort. Avoid burning out early.)", items: ["600m Run", "20 Wall Balls (20/14 lb)", "15 Burpee Broad Jumps", "50m Sled Pull (heavy)"] },
+                            { type: "cooldown", title: "Cooldown", items: ["5 min easy Rower (flush)", "Couch Stretch – 90 sec/side", "Foam Roll Quads & Lats – 5 min"] }
+                        ]
+                    },
+                    {
+                        id: "day2",
+                        title: "Day 2 – Running (Threshold Progression)",
+                        focus: "Lactate Threshold & Sustained Pace",
+                        introduction: "This session progresses your lactate threshold, increasing the duration or intensity of sustained efforts. Focus on maintaining a challenging but controlled pace.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10 min)", items: ["Easy jog", "Dynamic drills", "4x Strides @ 70-80% effort"] },
+                            { type: "mainSet", title: "Main Set – Threshold Ladder", details: "Focus on consistent pace for each segment.", exercises: [{ name: "1k Run @ Threshold Pace", details: "Rest 2 min walk" }, { name: "1.2k Run @ Threshold Pace", details: "Rest 2.5 min walk" }, { name: "1.4k Run @ Threshold Pace", details: "Rest 3 min walk" }] },
+                            { type: "cooldown", title: "Cooldown", items: ["5 min easy jog", "Calf Stretch – 45 sec/leg", "Hamstring Stretch – 60 sec/leg"] }
+                        ]
+                    },
+                    {
+                        id: "day3",
+                        title: "Day 3 – Strength + Conditioning (Lower Body Power & Core)",
+                        focus: "Explosive Lower Body & Core Stability",
+                        introduction: "This session targets explosive lower body power and robust core stability. The conditioning piece integrates dynamic movements to challenge your anaerobic power and coordination.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10-12 min)", items: ["5 min easy bike", "Dynamic lower body drills", "Box jump progressions (low box)"] },
+                            { type: "strength", title: "Strength Superset (4 Rounds)", details: "Rest 2 minutes. Focus on powerful hip extension.", exercises: [{ name: "1A. Barbell Deadlift", details: "4-6 reps @ 70-80% 1RM" }, { name: "1B. Hanging Leg Raises (strict)", details: "8-12 reps" }] },
+                            { type: "accessory", title: "Accessory Triset (3 Rounds)", details: "Rest 60 seconds. Maintain core tension.", exercises: [{ name: "1A. Kettlebell Goblet Squat", details: "12-15 reps" }, { name: "1B. Glute Bridge March", details: "10/side" }, { name: "1C. Medicine Ball Slams", details: "10-12 reps (explosive)" }] },
+                            { type: "conditioning", title: "Conditioning – EMOM 20 (5 Rounds)", details: "(Pacing: High intensity, short recovery. Maintain quality.)", items: ["Min 1: 15/12 Calorie Ski Erg", "Min 2: 10 Burpee Box Jump Overs", "Min 3: 10 Sandbag Over Shoulder (moderate)", "Min 4: Rest"] },
+                            { type: "cooldown", title: "Cooldown", items: ["5 min easy walk", "Pigeon Stretch – 60 sec/side", "Foam Roll Glutes & Hamstrings – 5 min"] }
+                        ]
+                    },
+                    {
+                        id: "day4",
+                        title: "Day 4 – Running (Longer Aerobic Hybrid)",
+                        focus: "Extended Mixed Modality Endurance",
+                        introduction: "This session extends your aerobic capacity across multiple Hyrox modalities. The goal is sustained effort and efficient transitions, building endurance for longer race segments.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (8 min)", items: ["Easy Rower", "Dynamic stretches for full body"] },
+                            { type: "mainSet", title: "Main Set – Continuous Hybrid Effort (50-60 min)", details: "Maintain a consistent Zone 2-3 pace throughout. Focus on smooth transitions.", items: ["15 min Run", "15 min Rower", "10 min Ski Erg", "10 min Assault Bike", "Remaining time: Run"] },
+                            { type: "cooldown", title: "Cooldown", items: ["5 min easy jog/walk", "Full Body Static Stretch – 5 min"] }
+                        ]
+                    },
+                    {
+                        id: "day5",
+                        title: "Day 5 – Strength + Conditioning (Upper Body Endurance & Anaerobic Grit)",
+                        focus: "Upper Body Stamina & High-Intensity Output",
+                        introduction: "This session challenges upper body endurance and anaerobic grit. Focus on maintaining strong, controlled movements through higher reps and pushing hard through the metabolic conditioning.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10-12 min)", items: ["Light cardio", "Band pull-aparts", "Scapular push-ups", "Light dumbbell presses"] },
+                            { type: "strength", title: "Strength Superset (4 Rounds)", details: "Rest 90 seconds. Focus on controlled movement.", exercises: [{ name: "1A. Dumbbell Bench Press", details: "8-10 reps (moderate-heavy)" }, { name: "1B. Incline Dumbbell Row", details: "10-12 reps" }] },
+                            { type: "accessory", title: "Accessory Triset (3 Rounds)", details: "Rest 60 seconds. Maintain good posture.", exercises: [{ name: "1A. Kettlebell Push Press (single arm)", details: "8/arm" }, { name: "1B. Face Pulls (band/cable)", details: "15 reps" }, { name: "1C. Plank with Alternating Arm Reach", details: "10/side" }] },
+                            { type: "conditioning", title: "Conditioning – AMRAP 15", details: "(Pacing: Aggressive, aim for consistent rounds)", items: ["10 Burpees", "15/12 Calorie Row", "10 Box Step-Overs (20/16 inch)", "10 Push-Ups"] },
+                            { type: "cooldown", title: "Cooldown", items: ["Pec Stretch (doorway) – 60 sec/side", "Lat Foam Roll – 2 min/side", "Diaphragmatic Breathing – 2 min"] }
+                        ]
+                    }
+                ]
+            },
+            // Week 4 Data (Detailed & Progressive)
+            {
+                title: "Week 4",
+                days: [
+                    {
+                        id: "day1",
+                        title: "Day 1 – Strength + Conditioning (Full Body Power & Resilience)",
+                        focus: "Explosive Power & Sustained Output",
+                        introduction: "This session builds explosive full-body power and resilience under load. The conditioning piece combines strength and cardio elements to challenge your ability to maintain output.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (12-15 min)", items: ["Dynamic mobility", "Light plyometrics (box jumps/broad jumps)", "Barbell complex (clean pulls, power cleans)"] },
+                            { type: "strength", title: "Strength Complex (4 Rounds)", details: "Rest 2.5 minutes. Focus on speed under the bar and powerful lockout.", exercises: [{ name: "1A. Power Clean + Push Jerk", details: "1+1 reps @ 80% of Power Clean 1RM" }, { name: "1B. Weighted Strict Pull-Ups", details: "4-6 reps (increase weight from Week 2)" }] },
+                            { type: "accessory", title: "Accessory Superset (3 Rounds)", details: "Rest 90 seconds. Control the eccentric.", exercises: [{ name: "1A. Barbell RDL", details: "8-10 reps (moderate-heavy)" }, { name: "1B. Deficit Push-Ups (hands on DBs)", details: "Max reps" }] },
+                            { type: "conditioning", title: "Conditioning – 4 Rounds for Time", details: "(Pacing: Hard, but maintain form. Aim for consistent splits.)", items: ["300m Run", "12 Wall Balls (20/14 lb)", "8 Burpee Over Rower", "50m Sled Pull (heavy)"] },
+                            { type: "cooldown", title: "Cooldown", items: ["2 min Rower (flush)", "Hamstring Stretch – 60 sec/leg", "Foam Roll Glutes & Calves – 5 min", "Box Breathing – 2 min"] }
+                        ]
+                    },
+                    {
+                        id: "day2",
+                        title: "Day 2 – Running (Tempo Intervals)",
+                        focus: "Sustained Speed & Aerobic Power",
+                        introduction: "This session focuses on sustaining a faster pace for longer durations. Tempo intervals challenge your aerobic power and ability to maintain a 'comfortably hard' effort.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10 min)", items: ["Easy jog", "Dynamic drills", "4x Strides @ 80% effort"] },
+                            { type: "mainSet", title: "Main Set – Tempo Interval Progression", details: "Focus on consistent pace for each interval. Short rest.", exercises: [{ name: "4x 800m Run @ Tempo Pace", details: "Rest 90 sec walk" }, { name: "3x 400m Run @ Faster Tempo Pace", details: "Rest 60 sec walk" }] },
+                            { type: "cooldown", title: "Cooldown", items: ["5 min easy jog", "Quad Stretch – 45 sec/leg", "Calf Stretch – 45 sec/leg"] }
+                        ]
+                    },
+                    {
+                        id: "day3",
+                        title: "Day 3 – Strength + Conditioning (Lower Body Power & Endurance)",
+                        focus: "Explosive Leg Drive & Muscular Stamina",
+                        introduction: "This session targets explosive lower body power and endurance. The strength work builds on previous weeks, and the conditioning piece integrates more dynamic, Hyrox-specific movements.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10-12 min)", items: ["5 min easy Ski Erg", "Dynamic lower body drills", "Box jump progressions (low box)"] },
+                            { type: "strength", title: "Strength (4 Sets)", details: "Rest 2 minutes. Focus on powerful ascent and control.", exercises: [{ name: "Back Squat", details: "4-6 reps @ 80-88% 1RM (from Week 1 1RM)" }] },
+                            { type: "accessory", title: "Accessory Triset (3 Rounds)", details: "Rest 90 seconds. Maintain core tension.", exercises: [{ name: "1A. Kettlebell Swings (heavy)", details: "15-20 reps (explosive)" }, { name: "1B. Single-Leg RDL (DB)", details: "8/leg (controlled)" }, { name: "1C. Side Plank with Hip Dip", details: "10/side" }] },
+                            { type: "conditioning", title: "Conditioning – AMRAP 18", details: "(Pacing: Grinding effort. Aim for consistent rounds with good form.)", items: ["10 Sandbag Over Shoulder (heavy)", "10 Box Jump Overs (24/20 inch)", "15/12 Calorie Assault Bike", "50m Sled Push (heavy)"] },
+                            { type: "cooldown", items: ["5 min easy walk", "Couch Stretch – 90 sec/side", "Foam Roll Glutes & IT Band – 5 min"] }
+                        ]
+                    },
+                    {
+                        id: "day4",
+                        title: "Day 4 – Running (Mixed Modality Intervals)",
+                        focus: "Hybrid Speed & Recovery",
+                        introduction: "This session combines running with other cardio modalities in an interval format. Focus on high-intensity bursts followed by active recovery to build hybrid speed and recovery capacity.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10 min)", items: ["Easy jog", "Dynamic drills", "Light efforts on all modalities"] },
+                            { type: "mainSet", title: "Main Set – Hybrid Intervals (4 Rounds)", details: "Perform each minute on the minute (EMOM) for 4 rounds. Rest 2 min between rounds.", items: ["Min 1: 200m Run (fast)", "Min 2: 15/12 Calorie Rower (fast)", "Min 3: 10 Burpees", "Min 4: Rest"] },
+                            { type: "cooldown", items: ["5 min easy jog/walk", "Full Body Static Stretch – 5 min"] }
+                        ]
+                    },
+                    {
+                        id: "day5",
+                        title: "Day 5 – Strength + Conditioning (Upper Body & Anaerobic Endurance)",
+                        focus: "Overhead Strength & Sustained Anaerobic Output",
+                        introduction: "This session targets overhead strength and the ability to sustain high-intensity anaerobic efforts. The conditioning piece is a demanding circuit that will push your limits.",
+                        sections: [
+                            { type: "warmUp", title: "Warm-Up (10-12 min)", items: ["Light cardio", "Band pull-aparts", "Scapular push-ups", "Light overhead presses"] },
+                            { type: "strength", title: "Strength Superset (4 Rounds)", details: "Rest 90 seconds. Focus on powerful drive and controlled descent.", exercises: [{ name: "1A. Push Press", details: "3-5 reps @ 80-88% 1RM (from Week 1 1RM)" }, { name: "1B. Strict Pull-Ups (weighted)", details: "5-7 reps" }] },
+                            { type: "accessory", title: "Accessory Triset (3 Rounds)", details: "Rest 60 seconds. Maintain strict form.", exercises: [{ name: "1A. Dumbbell Z Press", details: "6-8 reps (heavy)" }, { name: "1B. Face Pulls (band/cable)", details: "15-20 reps" }, { name: "1C. Overhead Dumbbell Carry", details: "50m/arm (heavy)" }] },
+                            { type: "conditioning", title: "Conditioning – AMRAP 15", details: "(Pacing: Aggressive. Aim for consistent rounds with minimal rest.)", items: ["10 Burpee Box Jump Overs", "15/12 Calorie Ski Erg", "10 Wall Balls (20/14 lb)", "10 Push-Ups"] },
+                            { type: "cooldown", items: ["Pec Stretch (doorway) – 60 sec/side", "Lat Foam Roll – 2 min/side", "Child's Pose with Lateral Reach – 60 sec/side"] }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let currentWeekIndex = getCurrentWeekIndex();
+        let currentDayIndex = 0; // Default to Day 1 of the current week
+
+        // Ensure currentWeekIndex does not exceed available weeks
+        if (currentWeekIndex >= programWeeks.length) {
+            currentWeekIndex = programWeeks.length - 1; // Show the last available week
+        }
 
         const dayDetailSection = document.getElementById('dayDetailSection');
-        const navigationButtons = document.querySelectorAll('#navigation button');
+        const weekNavigationContainer = document.getElementById('navigation');
+        const dayNavigationContainer = document.getElementById('dayNavigation');
+
+        // Calculate current week based on program start date
+        function getCurrentWeekIndex() {
+            const today = new Date();
+            // Ensure programStartDate is at the very beginning of the day to avoid timezone issues
+            const start = new Date(programStartDate.getFullYear(), programStartDate.getMonth(), programStartDate.getDate());
+            const diffTime = Math.abs(today - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            let calculatedWeekIndex = Math.floor(diffDays / 7);
+
+            // If today is before start date, default to Week 1 (index 0)
+            if (today < start) {
+                return 0;
+            }
+            // If calculated week index is beyond available weeks, cap it at the last week
+            if (calculatedWeekIndex >= programWeeks.length) {
+                return programWeeks.length - 1;
+            }
+            return calculatedWeekIndex;
+        }
+
+        function addAccordionListeners() {
+            document.querySelectorAll('.accordion-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = document.getElementById(button.getAttribute('aria-controls'));
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    content.style.display = isExpanded ? 'none' : 'block';
+                    button.classList.toggle('open');
+
+                    const icon = button.querySelector('.arrow-icon');
+                    icon.innerHTML = isExpanded ? '&#x25B6;' : '&#x25BC;'; // ► : ▼
+                });
+            });
+        }
+
+        function generateWeekNavigation() {
+            weekNavigationContainer.innerHTML = ''; // Clear existing buttons
+            programWeeks.forEach((week, index) => {
+                const button = document.createElement('button');
+                button.dataset.weekIndex = index;
+                button.classList.add('marchon-nav-button');
+                button.textContent = week.title;
+
+                if (index === currentWeekIndex) {
+                    button.classList.add('active');
+                }
+
+                button.addEventListener('click', () => {
+                    currentWeekIndex = index; // Update current week when button is clicked
+                    currentDayIndex = 0; // Reset to Day 1 when switching weeks
+                    updateWeekNavigationActiveState();
+                    generateDayNavigation(currentWeekIndex); // Regenerate day buttons for new week
+                    renderDayDetails(currentWeekIndex, currentDayIndex); // Render Day 1 of the selected week
+                });
+                weekNavigationContainer.appendChild(button);
+            });
+        }
+
+        function updateWeekNavigationActiveState() {
+            document.querySelectorAll('#navigation .marchon-nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeButton = document.querySelector(`#navigation .marchon-nav-button[data-week-index="${currentWeekIndex}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        function generateDayNavigation(weekIndex) {
+            dayNavigationContainer.innerHTML = ''; // Clear existing day buttons
+            const daysInWeek = programWeeks[weekIndex].days;
+            daysInWeek.forEach((day, index) => {
+                const button = document.createElement('button');
+                button.dataset.dayIndex = index;
+                button.classList.add('marchon-nav-button');
+                button.textContent = `Day ${index + 1}`; // Day 1, Day 2, etc.
+
+                if (index === currentDayIndex) {
+                    button.classList.add('active');
+                }
+
+                button.addEventListener('click', () => {
+                    currentDayIndex = index; // Update current day when button is clicked
+                    updateDayNavigationActiveState();
+                    renderDayDetails(currentWeekIndex, currentDayIndex); // Render the selected day
+                });
+                dayNavigationContainer.appendChild(button);
+            });
+        }
+
+        function updateDayNavigationActiveState() {
+            document.querySelectorAll('#dayNavigation .marchon-nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeButton = document.querySelector(`#dayNavigation .marchon-nav-button[data-day-index="${currentDayIndex}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
 
         // Helper to convert index to alphabet letter (A, B, C...)
         function getAlphabetLetter(index) {
@@ -612,8 +1181,15 @@
             `;
         }
 
-        function renderDayDetails(dayIndex) {
-            const day = week2Data.days[dayIndex];
+        function renderDayDetails(weekIndex, dayIndex) {
+            const currentWeekData = programWeeks[weekIndex];
+            const day = currentWeekData.days[dayIndex];
+
+            if (!day) {
+                dayDetailSection.innerHTML = `<p class="text-center text-slate-500 mt-10">No workout data for this day.</p>`;
+                return;
+            }
+
             let html = `<h2 class="day-section-title">${day.title}</h2>`;
             html += `<p class="day-introduction">${day.introduction}</p>`;
 
@@ -643,34 +1219,10 @@
             addAccordionListeners();
         }
 
-        function addAccordionListeners() {
-            document.querySelectorAll('.accordion-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const content = document.getElementById(button.getAttribute('aria-controls'));
-                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-                    button.setAttribute('aria-expanded', !isExpanded);
-                    content.style.display = isExpanded ? 'none' : 'block';
-                    button.classList.toggle('open');
-
-                    const icon = button.querySelector('.arrow-icon');
-                    icon.innerHTML = isExpanded ? '&#x25B6;' : '&#x25BC;'; // ► : ▼
-                });
-            });
-        }
-
-        navigationButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                navigationButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                button.classList.add('active');
-                renderDayDetails(parseInt(button.dataset.day));
-            });
-        });
-
-        // Initial load: Render Day 1 by default
-        renderDayDetails(0);
+        // Initialize the app
+        generateWeekNavigation();
+        generateDayNavigation(currentWeekIndex); // Generate day buttons for the current week
+        renderDayDetails(currentWeekIndex, currentDayIndex); // Render Day 1 of the current week by default
     </script>
 </body>
 </html>
