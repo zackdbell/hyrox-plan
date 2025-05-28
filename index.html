@@ -642,7 +642,7 @@
                     }
                 ]
             },
-            // Week 2 Data (Detailed & Progressive)
+            // Week 2 Data (Refined & Progressive)
             {
                 title: "Week 2",
                 days: [
@@ -793,7 +793,7 @@
                                     "10 Box Jumps (24/20 inch)",
                                     "15/12 Cal Assault Bike",
                                     "50m Sled Push (heavy)",
-                                    "8 Burpee Box Jump Overs"
+                                    "8 Burpee Over Rower"
                                 ]
                             },
                             {
@@ -829,12 +829,12 @@
                                 type: "mainSet",
                                 title: "Main Set – Continuous Effort (45–55 min)",
                                 details: "Perform the following sequence, moving directly from one modality to the next. Intent: Build sustained aerobic capacity across multiple Hyrox modalities. Focus on efficient transitions.",
-                                items: [
-                                    "10 min Run (Zone 2-3 pace)",
-                                    "10 min Rower (Zone 2-3 pace)",
-                                    "10 min Ski Erg (Zone 2-3 pace)",
-                                    "10 min Run (Zone 2-3 pace)",
-                                    "5-15 min Assault Bike (Zone 2-3 pace, use remaining time)"
+                                exercises: [
+                                    { name: "10 min Run", details: "(Zone 2-3 pace)" },
+                                    { name: "10 min Rower", details: "(Zone 2-3 pace)" },
+                                    { name: "10 min Ski Erg", details: "(Zone 2-3 pace)" },
+                                    { name: "10 min Run", details: "(Zone 2-3 pace)" },
+                                    { name: "5-15 min Assault Bike", details: "(Zone 2-3 pace, use remaining time)" }
                                 ]
                             },
                             {
@@ -909,7 +909,7 @@
                     }
                 ]
             },
-            // Week 3 Data (Detailed & Progressive)
+            // Week 3 Data (Refined & Progressive)
             {
                 title: "Week 3",
                 days: [
@@ -933,7 +933,7 @@
                         introduction: "This session progresses your lactate threshold, increasing the duration or intensity of sustained efforts. Focus on maintaining a challenging but controlled pace.",
                         sections: [
                             { type: "warmUp", title: "Warm-Up (10 min)", items: ["Easy jog", "Dynamic drills", "4x Strides @ 70-80% effort"] },
-                            { type: "mainSet", title: "Main Set – Threshold Ladder", details: "Focus on consistent pace for each segment.", exercises: [{ name: "1k Run @ Threshold Pace", details: "Rest 2 min walk" }, { name: "1.2k Run @ Threshold Pace", details: "Rest 2.5 min walk" }, { name: "1.4k Run @ Threshold Pace", details: "Rest 3 min walk" }] },
+                            { type: "mainSet", title: "Main Set – Threshold Ladder", details: "Focus on consistent pace for each segment.", exercises: [{ name: "1k Run", details: "@ Threshold Pace (Rest 2 min walk)" }, { name: "1.2k Run", details: "@ Threshold Pace (Rest 2.5 min walk)" }, { name: "1.4k Run", details: "@ Threshold Pace (Rest 3 min walk)" }] },
                             { type: "cooldown", title: "Cooldown", items: ["5 min easy jog", "Calf Stretch – 45 sec/leg", "Hamstring Stretch – 60 sec/leg"] }
                         ]
                     },
@@ -957,7 +957,7 @@
                         introduction: "This session extends your aerobic capacity across multiple Hyrox modalities. The goal is sustained effort and efficient transitions, building endurance for longer race segments.",
                         sections: [
                             { type: "warmUp", title: "Warm-Up (8 min)", items: ["Easy Rower", "Dynamic stretches for full body"] },
-                            { type: "mainSet", title: "Main Set – Continuous Hybrid Effort (50-60 min)", details: "Maintain a consistent Zone 2-3 pace throughout. Focus on smooth transitions.", items: ["15 min Run", "15 min Rower", "10 min Ski Erg", "10 min Assault Bike", "Remaining time: Run"] },
+                            { type: "mainSet", title: "Main Set – Continuous Hybrid Effort (50-60 min)", details: "Maintain a consistent Zone 2-3 pace throughout. Focus on smooth transitions.", exercises: [{ name: "15 min Run", details: "(Zone 2-3 pace)" }, { name: "15 min Rower", details: "(Zone 2-3 pace)" }, { name: "10 min Ski Erg", details: "(Zone 2-3 pace)" }, { name: "10 min Assault Bike", details: "(Zone 2-3 pace)" }] },
                             { type: "cooldown", title: "Cooldown", items: ["5 min easy jog/walk", "Full Body Static Stretch – 5 min"] }
                         ]
                     },
@@ -990,7 +990,7 @@
                             { type: "strength", title: "Strength Complex (4 Rounds)", details: "Rest 2.5 minutes. Focus on speed under the bar and powerful lockout.", exercises: [{ name: "1A. Power Clean + Push Jerk", details: "1+1 reps @ 80% of Power Clean 1RM" }, { name: "1B. Weighted Strict Pull-Ups", details: "4-6 reps (increase weight from Week 2)" }] },
                             { type: "accessory", title: "Accessory Superset (3 Rounds)", details: "Rest 90 seconds. Control the eccentric.", exercises: [{ name: "1A. Barbell RDL", details: "8-10 reps (moderate-heavy)" }, { name: "1B. Deficit Push-Ups (hands on DBs)", details: "Max reps" }] },
                             { type: "conditioning", title: "Conditioning – 4 Rounds for Time", details: "(Pacing: Hard, but maintain form. Aim for consistent splits.)", items: ["300m Run", "12 Wall Balls (20/14 lb)", "8 Burpee Over Rower", "50m Sled Pull (heavy)"] },
-                            { type: "cooldown", title: "Cooldown", items: ["2 min Rower (flush)", "Hamstring Stretch – 60 sec/leg", "Foam Roll Glutes & Calves – 5 min", "Box Breathing – 2 min"] }
+                            { type: "cooldown", items: ["2 min Rower (flush)", "Hamstring Stretch – 60 sec/leg", "Foam Roll Glutes & Calves – 5 min", "Box Breathing – 2 min"] }
                         ]
                     },
                     {
@@ -1000,8 +1000,8 @@
                         introduction: "This session focuses on sustaining a faster pace for longer durations. Tempo intervals challenge your aerobic power and ability to maintain a 'comfortably hard' effort.",
                         sections: [
                             { type: "warmUp", title: "Warm-Up (10 min)", items: ["Easy jog", "Dynamic drills", "4x Strides @ 80% effort"] },
-                            { type: "mainSet", title: "Main Set – Tempo Interval Progression", details: "Focus on consistent pace for each interval. Short rest.", exercises: [{ name: "4x 800m Run @ Tempo Pace", details: "Rest 90 sec walk" }, { name: "3x 400m Run @ Faster Tempo Pace", details: "Rest 60 sec walk" }] },
-                            { type: "cooldown", title: "Cooldown", items: ["5 min easy jog", "Quad Stretch – 45 sec/leg", "Calf Stretch – 45 sec/leg"] }
+                            { type: "mainSet", title: "Main Set – Tempo Interval Progression", details: "Focus on consistent pace for each interval. Short rest.", exercises: [{ name: "4x 800m Run", details: "@ Tempo Pace (Rest 90 sec walk)" }, { name: "3x 400m Run", details: "@ Faster Tempo Pace (Rest 60 sec walk)" }] },
+                            { type: "cooldown", items: ["5 min easy jog", "Quad Stretch – 45 sec/leg", "Calf Stretch – 45 sec/leg"] }
                         ]
                     },
                     {
