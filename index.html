@@ -11,24 +11,68 @@
         2. Navigation: Report Info: Multiple days. Goal: Allow easy switching between daily plans. Viz/Presentation: Tab-like buttons (HTML/Tailwind). Interaction: Click to change displayed content. Justification: Standard and intuitive SPA navigation. Method: Vanilla JS.
     -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif; /* Tailwind's default sans-serif is usually good, explicitly setting for clarity */
-        }
-        .nav-button {
-            transition: all 0.3s ease;
-        }
-        .nav-button.active {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        }
-        .accordion-button span {
-            transition: transform 0.3s ease;
-        }
-        .accordion-button.open span {
-            transform: rotate(90deg);
-        }
-        /* Chart container styles removed as overview is removed */
-    </style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f9f9f9; /* Very light grey background for the body */
+        color: #333; /* Dark grey text */
+    }
+    .container {
+        background-color: #fff; /* White background for the main container */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    }
+    header h1 {
+        color: #222; /* Darker heading text */
+    }
+    header p {
+        color: #555; /* Slightly lighter subheading text */
+    }
+    .nav-button {
+        background-color: #eee; /* Light grey button */
+        color: #333;
+        transition: all 0.3s ease;
+    }
+    .nav-button:hover {
+        background-color: #ddd;
+    }
+    .nav-button.active {
+        background-color: #0284c7; /* Keep the sky blue for the active button */
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+    .accordion-button {
+        background-color: #f7f7f7; /* Very light grey accordion header */
+        color: #333;
+        border-bottom: 1px solid #eee;
+    }
+    .accordion-button:hover {
+        background-color: #f0f0f0;
+    }
+    .accordion-button h3 {
+        color: #222;
+    }
+    .accordion-button span {
+        color: #0284c7; /* Keep the sky blue for the accordion arrow */
+        transition: transform 0.3s ease;
+    }
+    .accordion-button.open span {
+        transform: rotate(90deg);
+    }
+    .accordion-content {
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+    }
+    .accordion-content li {
+        color: #555;
+        border-left-color: #ddd;
+    }
+    .accordion-content strong {
+        color: #222;
+    }
+    footer {
+        color: #777;
+    }
+</style>
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
