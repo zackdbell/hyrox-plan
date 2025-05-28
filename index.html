@@ -13,8 +13,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap');
 
+        /* Base styles for the entire page, applying League Spartan universally */
         body {
-            font-family: 'League Spartan', sans-serif; /* Changed body font to League Spartan */
+            font-family: 'League Spartan', sans-serif;
             background-color: #f9f9f9; /* Light grey background */
             color: #333; /* Dark grey text */
             line-height: 1.6;
@@ -22,6 +23,7 @@
             padding: 0;
         }
 
+        /* Main container for the application content */
         .marchon-container {
             max-width: 960px; /* Wider container for more content space */
             margin: 40px auto; /* Centered with top/bottom margin */
@@ -31,13 +33,14 @@
             border-radius: 8px; /* Slightly rounded corners */
         }
 
+        /* Header styling */
         .marchon-header {
             text-align: center;
             margin-bottom: 30px;
         }
 
         .marchon-title {
-            font-family: 'League Spartan', sans-serif; /* Marchon heading font */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for main title */
             font-size: 2.5em; /* Larger, bold title */
             font-weight: 800; /* Extra bold for impact */
             color: #222; /* Very dark grey for main titles */
@@ -51,6 +54,7 @@
             font-weight: 500;
         }
 
+        /* Navigation bar styling */
         .marchon-navigation {
             display: flex;
             justify-content: center;
@@ -70,7 +74,7 @@
             font-size: 1em;
             font-weight: 500;
             flex-shrink: 0; /* Prevent buttons from shrinking too much */
-            font-family: 'League Spartan', sans-serif; /* Ensure button text uses League Spartan */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply League Spartan */
         }
 
         .marchon-nav-button:hover {
@@ -83,14 +87,16 @@
             border-color: #222; /* Dark border for active button */
         }
 
+        /* Main content area styling */
         .marchon-main-content {
             padding: 20px;
             background-color: #fff; /* Ensures main content area is white */
             border-radius: 5px;
         }
 
+        /* Day title styling */
         .day-section-title {
-            font-family: 'League Spartan', sans-serif; /* Marchon heading font */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for day title */
             font-size: 1.8em; /* Title for each day */
             font-weight: 800;
             color: #222;
@@ -98,19 +104,22 @@
             text-transform: uppercase;
         }
 
+        /* Day introduction text */
         .day-introduction {
             color: #555;
             margin-bottom: 25px;
             font-size: 0.95em;
+            font-weight: 400; /* Lighter weight for readability */
         }
 
-        /* Marchon-style workout block */
+        /* Marchon-style workout block (A, B, C sections) */
         .marchon-workout-block {
             display: flex;
             margin-bottom: 20px;
             position: relative;
         }
 
+        /* Vertical connecting line for workout blocks */
         .marchon-workout-block:not(:last-child)::after {
             content: '';
             position: absolute;
@@ -122,6 +131,7 @@
             z-index: 0;
         }
 
+        /* Lettered badge (A, B, C circle) */
         .marchon-letter-badge {
             width: 35px;
             height: 35px;
@@ -132,13 +142,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'League Spartan', sans-serif; /* Use League Spartan for badge letters */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for badge letters */
             font-weight: 700;
             font-size: 1.2em;
             margin-right: 15px;
             z-index: 1; /* Keep badge above the line */
         }
 
+        /* Content area for each workout block (accordion container) */
         .marchon-workout-content {
             flex-grow: 1;
             border: 1px solid #eee; /* Light border for each section */
@@ -147,6 +158,7 @@
             background-color: #fff;
         }
 
+        /* Accordion button (header for each workout section) */
         .accordion-button {
             width: 100%;
             padding: 15px;
@@ -161,7 +173,7 @@
             font-size: 1.05em;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to accordion titles */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for accordion titles */
             text-transform: uppercase;
         }
 
@@ -174,6 +186,7 @@
             margin: 0; /* Remove default margin */
         }
 
+        /* Arrow icon in accordion button */
         .accordion-button .arrow-icon {
             font-size: 1.2em;
             color: #777; /* Grey arrow icon */
@@ -185,6 +198,7 @@
             transform: rotate(90deg); /* Rotate arrow when open */
         }
 
+        /* Accordion content area */
         .accordion-content {
             padding: 15px;
             background-color: #fff; /* White background for content */
@@ -202,12 +216,13 @@
             padding: 6px 0;
             color: #555; /* Medium grey for list items */
             position: relative;
-            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to list items */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for list items */
             font-weight: 400; /* Lighter weight for readability */
         }
 
+        /* Strong text within accordion content (exercise names) */
         .accordion-content strong {
-            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to exercise names */
+            font-family: 'League Spartan', sans-serif; /* Explicitly apply for exercise names */
             color: #222; /* Dark text for exercise names */
             font-weight: 700; /* Bold for emphasis */
             font-size: 1.05em;
@@ -215,6 +230,7 @@
             margin-bottom: 2px;
         }
 
+        /* Paragraph details within accordion content */
         .accordion-content p.details {
             font-family: 'League Spartan', sans-serif; /* Explicitly set details font to League Spartan */
             color: #666; /* Slightly lighter for details/notes */
@@ -225,6 +241,7 @@
             line-height: 1.4;
         }
 
+        /* Footer styling */
         .marchon-footer {
             text-align: center;
             padding-top: 30px;
@@ -232,7 +249,7 @@
             font-size: 0.9em;
         }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .marchon-container {
                 margin: 20px auto;
