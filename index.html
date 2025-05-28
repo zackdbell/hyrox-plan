@@ -6,97 +6,296 @@
     <title>Hyrox Prep - Week 2 Interactive Plan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Visualization & Content Choices: 
-        1. Daily Workout Details: Report Info: Specific exercises, sets, reps, notes per day. Goal: Present daily training instructions clearly and interactively. Viz/Presentation: Structured HTML lists within accordion sections (Tailwind CSS for styling). Interaction: Click to expand/collapse Warm-up, Strength, Accessory, Conditioning, Cooldown sections. Justification: Allows users to focus on one part of the workout at a time, improving readability and reducing clutter. Method: Vanilla JS for accordion logic.
-        2. Navigation: Report Info: Multiple days. Goal: Allow easy switching between daily plans. Viz/Presentation: Tab-like buttons (HTML/Tailwind). Interaction: Click to change displayed content. Justification: Standard and intuitive SPA navigation. Method: Vanilla JS.
+    <!-- Visualization & Content Choices:
+        1. Daily Workout Details: Report Info: Specific exercises, sets, reps, notes per day. Goal: Present daily training instructions with Marchon's distinct visual clarity. Viz/Presentation: Custom HTML structure with lettered circular badges, vertical connecting lines, and bold exercise names. Interaction: Click to expand/collapse Warm-up, Strength, Accessory, Conditioning, Cooldown sections, revealing details. Justification: Directly emulates Marchon's "EXAMPLE DAY" format, providing a highly organized and visually appealing way to consume workout information. Method: Vanilla JS for accordion logic and dynamic rendering of structured HTML.
+        2. Navigation: Report Info: Multiple days. Goal: Allow easy switching between daily plans. Viz/Presentation: Tab-like buttons (Custom CSS with Marchon-inspired classes). Interaction: Click to change displayed content. Justification: Standard and intuitive SPA navigation, styled for a minimalist and modern feel. Method: Vanilla JS.
     -->
     <style>
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f9f9f9; /* Very light grey background for the body */
-        color: #333; /* Dark grey text */
-    }
-    .container {
-        background-color: #fff; /* White background for the main container */
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-    }
-    header h1 {
-        color: #222; /* Darker heading text */
-    }
-    header p {
-        color: #555; /* Slightly lighter subheading text */
-    }
-    .nav-button {
-        background-color: #eee; /* Light grey button */
-        color: #333;
-        transition: all 0.3s ease;
-    }
-    .nav-button:hover {
-        background-color: #ddd;
-    }
-    .nav-button.active {
-        background-color: #0284c7; /* Keep the sky blue for the active button */
-        color: #fff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    }
-    .accordion-button {
-        background-color: #f7f7f7; /* Very light grey accordion header */
-        color: #333;
-        border-bottom: 1px solid #eee;
-    }
-    .accordion-button:hover {
-        background-color: #f0f0f0;
-    }
-    .accordion-button h3 {
-        color: #222;
-    }
-    .accordion-button span {
-        color: #0284c7; /* Keep the sky blue for the accordion arrow */
-        transition: transform 0.3s ease;
-    }
-    .accordion-button.open span {
-        transform: rotate(90deg);
-    }
-    .accordion-content {
-        background-color: #fff;
-        border-bottom: 1px solid #eee;
-    }
-    .accordion-content li {
-        color: #555;
-        border-left-color: #ddd;
-    }
-    .accordion-content strong {
-        color: #222;
-    }
-    footer {
-        color: #777;
-    }
-</style>
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+        @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'League Spartan', sans-serif; /* Changed body font to League Spartan */
+            background-color: #f9f9f9; /* Light grey background */
+            color: #333; /* Dark grey text */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .marchon-container {
+            max-width: 960px; /* Wider container for more content space */
+            margin: 40px auto; /* Centered with top/bottom margin */
+            padding: 30px;
+            background-color: #fff; /* Pure white content background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle, modern shadow */
+            border-radius: 8px; /* Slightly rounded corners */
+        }
+
+        .marchon-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .marchon-title {
+            font-family: 'League Spartan', sans-serif; /* Marchon heading font */
+            font-size: 2.5em; /* Larger, bold title */
+            font-weight: 800; /* Extra bold for impact */
+            color: #222; /* Very dark grey for main titles */
+            margin-bottom: 10px;
+            text-transform: uppercase; /* Match Marchon's uppercase style */
+        }
+
+        .marchon-subtitle {
+            font-size: 1.1em;
+            color: #555; /* Medium grey for subtitles */
+            font-weight: 500;
+        }
+
+        .marchon-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+
+        .marchon-nav-button {
+            padding: 10px 20px;
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px;
+            background-color: #eee; /* Light grey button background */
+            color: #333; /* Dark grey button text */
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+            flex-shrink: 0; /* Prevent buttons from shrinking too much */
+            font-family: 'League Spartan', sans-serif; /* Ensure button text uses League Spartan */
+        }
+
+        .marchon-nav-button:hover {
+            background-color: #ddd; /* Slightly darker on hover */
+        }
+
+        .marchon-nav-button.active {
+            background-color: #222; /* Dark background for active button */
+            color: #fff; /* White text for active button */
+            border-color: #222; /* Dark border for active button */
+        }
+
+        .marchon-main-content {
+            padding: 20px;
+            background-color: #fff; /* Ensures main content area is white */
+            border-radius: 5px;
+        }
+
+        .day-section-title {
+            font-family: 'League Spartan', sans-serif; /* Marchon heading font */
+            font-size: 1.8em; /* Title for each day */
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .day-introduction {
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        /* Marchon-style workout block */
+        .marchon-workout-block {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .marchon-workout-block:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 17px; /* Align with center of circle */
+            top: 40px; /* Start below the circle */
+            bottom: -20px; /* Extend below this block */
+            width: 2px;
+            background-color: #eee; /* Light grey line */
+            z-index: 0;
+        }
+
+        .marchon-letter-badge {
+            width: 35px;
+            height: 35px;
+            min-width: 35px; /* Ensure it doesn't shrink */
+            border-radius: 50%;
+            background-color: #00FF00; /* Neon Green */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'League Spartan', sans-serif; /* Use League Spartan for badge letters */
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-right: 15px;
+            z-index: 1; /* Keep badge above the line */
+        }
+
+        .marchon-workout-content {
+            flex-grow: 1;
+            border: 1px solid #eee; /* Light border for each section */
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .accordion-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #f7f7f7; /* Very light grey for accordion headers */
+            color: #333;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.05em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to accordion titles */
+            text-transform: uppercase;
+        }
+
+        .accordion-button:hover {
+            background-color: #f0f0f0; /* Slightly darker on hover */
+        }
+
+        .accordion-button h3 {
+            color: #222; /* Dark text for accordion header title */
+            margin: 0; /* Remove default margin */
+        }
+
+        .accordion-button .arrow-icon {
+            font-size: 1.2em;
+            color: #777; /* Grey arrow icon */
+            transition: transform 0.3s ease;
+            line-height: 1; /* Align icon better */
+        }
+
+        .accordion-button.open .arrow-icon {
+            transform: rotate(90deg); /* Rotate arrow when open */
+        }
+
+        .accordion-content {
+            padding: 15px;
+            background-color: #fff; /* White background for content */
+            border-top: 1px solid #eee; /* Separator from header */
+            display: none; /* Initially hidden */
+        }
+
+        .accordion-content ul {
+            list-style: none; /* Remove default list bullets */
+            padding: 0;
+            margin: 0;
+        }
+
+        .accordion-content li {
+            padding: 6px 0;
+            color: #555; /* Medium grey for list items */
+            position: relative;
+            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to list items */
+            font-weight: 400; /* Lighter weight for readability */
+        }
+
+        .accordion-content strong {
+            font-family: 'League Spartan', sans-serif; /* Apply League Spartan to exercise names */
+            color: #222; /* Dark text for exercise names */
+            font-weight: 700; /* Bold for emphasis */
+            font-size: 1.05em;
+            display: block; /* Ensure it takes its own line */
+            margin-bottom: 2px;
+        }
+
+        .accordion-content p.details {
+            font-family: 'League Spartan', sans-serif; /* Explicitly set details font to League Spartan */
+            color: #666; /* Slightly lighter for details/notes */
+            font-size: 0.9em;
+            font-weight: 400; /* Lighter weight for readability */
+            margin-top: 0;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .marchon-footer {
+            text-align: center;
+            padding-top: 30px;
+            color: #777; /* Lighter grey for footer text */
+            font-size: 0.9em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .marchon-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            .marchon-title {
+                font-size: 2em;
+            }
+            .marchon-subtitle {
+                font-size: 1em;
+            }
+            .marchon-nav-button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .day-section-title {
+                font-size: 1.5em;
+            }
+            .accordion-button {
+                padding: 12px;
+                font-size: 1em;
+            }
+            .accordion-content {
+                padding: 12px;
+            }
+            .accordion-content li {
+                padding: 5px 0;
+            }
+            .marchon-letter-badge {
+                width: 30px;
+                height: 30px;
+                min-width: 30px;
+                font-size: 1em;
+                margin-right: 10px;
+            }
+            .marchon-workout-block:not(:last-child)::after {
+                left: 14.5px; /* Adjust line position for smaller badge */
+                top: 35px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-100 text-slate-700 antialiased">
-    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
-        <header class="mb-6 md:mb-10 text-center">
-            <h1 class="text-3xl sm:text-4xl font-bold text-sky-700">Hyrox Prep - Week 2</h1>
-            <p class="text-md sm:text-lg text-slate-600 mt-1">Interactive Training Plan</p>
+<body>
+    <div class="marchon-container">
+        <header class="marchon-header">
+            <h1 class="marchon-title">Hyrox Prep - Week 2</h1>
+            <p class="marchon-subtitle">Interactive Training Plan</p>
         </header>
 
-        <nav id="navigation" class="mb-6 md:mb-8 flex flex-wrap justify-center gap-2 sm:gap-3">
-            <button data-target="dayDetailSection" data-day="0" class="nav-button active bg-sky-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-sky-700">Day 1</button>
-            <button data-target="dayDetailSection" data-day="1" class="nav-button bg-slate-200 text-slate-700 py-2 px-4 rounded-lg shadow hover:bg-slate-300">Day 2</button>
-            <button data-target="dayDetailSection" data-day="2" class="nav-button bg-slate-200 text-slate-700 py-2 px-4 rounded-lg shadow hover:bg-slate-300">Day 3</button>
-            <button data-target="dayDetailSection" data-day="3" class="nav-button bg-slate-200 text-slate-700 py-2 px-4 rounded-lg shadow hover:bg-slate-300">Day 4</button>
-            <button data-target="dayDetailSection" data-day="4" class="nav-button bg-slate-200 text-slate-700 py-2 px-4 rounded-lg shadow hover:bg-slate-300">Day 5</button>
+        <nav id="navigation" class="marchon-navigation">
+            <button data-target="dayDetailSection" data-day="0" class="marchon-nav-button active">Day 1</button>
+            <button data-target="dayDetailSection" data-day="1" class="marchon-nav-button">Day 2</button>
+            <button data-target="dayDetailSection" data-day="2" class="marchon-nav-button">Day 3</button>
+            <button data-target="dayDetailSection" data-day="3" class="marchon-nav-button">Day 4</button>
+            <button data-target="dayDetailSection" data-day="4" class="marchon-nav-button">Day 5</button>
         </nav>
 
-        <main id="contentArea" class="bg-white p-4 sm:p-6 rounded-xl shadow-xl min-h-[400px]">
+        <main id="contentArea" class="marchon-main-content">
             <div id="dayDetailSection">
                 </div>
         </main>
 
-        <footer class="mt-10 text-center text-sm text-slate-500">
+        <footer class="marchon-footer">
             <p>&copy; 2025 Hybrid Athlete Training. Train hard. Recover smart.</p>
         </footer>
     </div>
@@ -107,353 +306,323 @@
             days: [
                 {
                     id: "day1",
-                    title: "Day 1 – Strength + Conditioning (Full Body Power)",
+                    title: "Day 1 – Strength and Conditioning",
                     focus: "Full Body Power",
                     introduction: "Day 1 focuses on developing full body power with a Power Clean primary lift, followed by a comprehensive accessory circuit and a challenging conditioning piece to build strength and work capacity. Aim for explosive movements in your lifts and maintain a strong, consistent pace in the conditioning.",
-                    warmUp: {
-                        title: "Warm-Up (12–15 min)",
-                        items: [
-                            "Dynamic Leg Swings (forward/backward, lateral) – 10/leg each direction",
-                            "Cat-Cow + Thoracic Rotations – 8 reps each",
-                            "Spiderman Lunge with Thoracic Reach – 5/side",
-                            "Cossack Squats – 5/side",
-                            "Assault Bike – 3 min (build effort)",
-                            "Barbell RDL (empty bar) – 8 reps",
-                            "3 Power Cleans (light) + 5 Push Jerks (light) – 2 sets"
-                        ]
-                    },
-                    strength: {
-                        title: "Strength Superset (5 Rounds)",
-                        type: "Superset",
-                        rounds: "5 Rounds",
-                        exercises: [
-                            { name: "1a. Power Clean", details: "2 reps @ 75–85% 1RM (focus on speed under the bar)" },
-                            { name: "1b. Strict Pull-Ups", details: "5–7 reps (add weight if possible)" }
-                        ],
-                        rest: "Rest 2 minutes"
-                    },
-                    accessory: {
-                        title: "Accessory Triset (3 Rounds)",
-                        type: "Triset",
-                        rounds: "3 Rounds",
-                        exercises: [
-                            { name: "1a. Dumbbell Snatch (alternating)", details: "8/arm (focus on powerful hip drive)" },
-                            { name: "1b. Single-Arm Dumbbell Row", details: "10/arm (controlled eccentric)" },
-                            { name: "1c. Farmers Carry (heavy DBs)", details: "50m (maintain upright posture, brace core)" }
-                        ],
-                        rest: "Rest 90 seconds"
-                    },
-                    conditioning: {
-                        title: "Conditioning – 3 Rounds for Time",
-                        details: "(Pacing: Consistent, controlled effort. Avoid redlining early.)",
-                        items: [
-                            "400m Run",
-                            "15 Wall Balls (20/14 lb)",
-                            "200m Ski Erg",
-                            "10 Burpee Over Rower",
-                            "50m Sled Pull (moderate-heavy)",
-                            "10 Toes-to-Bar"
-                        ]
-                    },
-                    cooldown: {
-                        title: "Cooldown",
-                        items: [
-                            "2 min Rower (flush)",
-                            "Pigeon Stretch – 60 sec/side",
-                            "Foam Roll Glutes, Hamstrings, Upper Back – 5 min",
-                            "Diaphragmatic Breathing – 2 min"
-                        ]
-                    }
+                    sections: [
+                        {
+                            type: "warmUp",
+                            title: "Warm-Up (12–15 min)",
+                            items: [
+                                "Dynamic Leg Swings (forward/backward, lateral) – 10/leg each direction",
+                                "Cat-Cow + Thoracic Rotations – 8 reps each",
+                                "Spiderman Lunge with Thoracic Reach – 5/side",
+                                "Cossack Squats – 5/side",
+                                "Assault Bike – 3 min (build effort)",
+                                "Barbell RDL (empty bar) – 8 reps",
+                                "3 Power Cleans (light) + 5 Push Jerks (light) – 2 sets"
+                            ]
+                        },
+                        {
+                            type: "strength",
+                            title: "Strength Superset (5 Rounds)",
+                            details: "Rest 2 minutes",
+                            exercises: [
+                                { name: "1A. Power Clean", details: "2 reps @ 75–85% 1RM (focus on speed under the bar)" },
+                                { name: "1B. Strict Pull-Ups", details: "5–7 reps (add weight if possible)" }
+                            ]
+                        },
+                        {
+                            type: "accessory",
+                            title: "Accessory Triset (3 Rounds)",
+                            details: "Rest 90 seconds",
+                            exercises: [
+                                { name: "1A. Dumbbell Snatch (alternating)", details: "8/arm (focus on powerful hip drive)" },
+                                { name: "1B. Single-Arm Dumbbell Row", details: "10/arm (controlled eccentric)" },
+                                { name: "1C. Farmers Carry (heavy DBs)", details: "50m (maintain upright posture, brace core)" }
+                            ]
+                        },
+                        {
+                            type: "conditioning",
+                            title: "Conditioning – 3 Rounds for Time",
+                            details: "(Pacing: Consistent, controlled effort. Avoid redlining early.)",
+                            items: [
+                                "400m Run",
+                                "15 Wall Balls (20/14 lb)",
+                                "200m Ski Erg",
+                                "10 Burpee Over Rower",
+                                "50m Sled Pull (moderate-heavy)",
+                                "10 Toes-to-Bar"
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            title: "Cooldown",
+                            items: [
+                                "2 min Rower (flush)",
+                                "Pigeon Stretch – 60 sec/side",
+                                "Foam Roll Glutes, Hamstrings, Upper Back – 5 min",
+                                "Diaphragmatic Breathing – 2 min"
+                            ]
+                        }
+                    ]
                 },
                 {
                     id: "day2",
                     title: "Day 2 – Running (VO2 Max Intervals)",
                     focus: "VO2 Max Intervals",
                     introduction: "Day 2 is dedicated to improving VO2 max through high-intensity running intervals. The session is structured with specific work and rest periods to push your aerobic and anaerobic thresholds. Focus on hitting your target paces and using the recovery periods effectively.",
-                    warmUp: {
-                        title: "Warm-Up",
-                        items: [
-                            "8 min easy jog",
-                            "Dynamic Drills (2 Rounds):",
-                            "  ◦ 15 High Knees",
-                            "  ◦ 15 Butt Kicks",
-                            "  ◦ 10 Walking Quad Stretch",
-                            "  ◦ 10 Walking Hamstring Scoop",
-                            "4x Strides @ 80–90% effort (focus on quick turnover)"
-                        ]
-                    },
-                    mainSet: { 
-                        title: "Main Set",
-                        type: "Intervals",
-                        exercises: [ 
-                            { name: "6x 400m Run @ 90–95% effort", details: "(aim for consistent splits)<br>◦ Rest 400m walk recovery (active recovery)" },
-                            { name: "4x 200m Run @ near maximal effort", details: "◦ Rest 200m walk recovery" }
-                        ]
-                    },
-                    cooldown: {
-                        title: "Cooldown",
-                        items: [
-                            "5 min jog",
-                            "Standing Calf Stretch – 45 sec/leg",
-                            "Figure-Four Stretch – 60 sec/side"
-                        ]
-                    }
+                    sections: [
+                        {
+                            type: "warmUp",
+                            title: "Warm-Up",
+                            items: [
+                                "8 min easy jog",
+                                "Dynamic Drills (2 Rounds):",
+                                "  ◦ 15 High Knees",
+                                "  ◦ 15 Butt Kicks",
+                                "  ◦ 10 Walking Quad Stretch",
+                                "  ◦ 10 Walking Hamstring Scoop",
+                                "4x Strides @ 80–90% effort (focus on quick turnover)"
+                            ]
+                        },
+                        {
+                            type: "mainSet",
+                            title: "Main Set",
+                            details: "",
+                            exercises: [
+                                { name: "6x 400m Run @ 90–95% effort", details: "(aim for consistent splits)<br>◦ Rest 400m walk recovery (active recovery)" },
+                                { name: "4x 200m Run @ near maximal effort", details: "◦ Rest 200m walk recovery" }
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            title: "Cooldown",
+                            items: [
+                                "5 min jog",
+                                "Standing Calf Stretch – 45 sec/leg",
+                                "Figure-Four Stretch – 60 sec/side"
+                            ]
+                        }
+                    ]
                 },
                 {
                     id: "day3",
-                    title: "Day 3 – Strength + Conditioning (Lower Body Strength & Endurance)",
+                    title: "Day 3 – Strength and Conditioning",
                     focus: "Lower Body Strength & Endurance",
                     introduction: "Day 3 targets lower body strength with Back Squats as the primary lift, complemented by accessory work for endurance and a challenging AMRAP to test grit and pacing under fatigue. Maintain quality of movement, especially as fatigue sets in during the AMRAP.",
-                    warmUp: {
-                        title: "Warm-Up",
-                        items: [
-                            "5 min easy Row",
-                            "3 Rounds:",
-                            "  ◦ 8 Goblet Squats",
-                            "  ◦ 6 Cossack Squats/side",
-                            "  ◦ 10 Banded Glute Bridges",
-                            "  ◦ 10 Good Mornings (empty bar)",
-                            "3x3 Back Squat build-up to working weight"
-                        ]
-                    },
-                    strength: {
-                        title: "Strength (4 Sets)",
-                        type: "Single Lift",
-                        rounds: "4 Sets",
-                        exercises: [
-                            { name: "Back Squat", details: "5 reps @ 75–82% 1RM (focus on depth and control)" }
-                        ],
-                        rest: "Rest 2 minutes"
-                    },
-                    accessory: {
-                        title: "Accessory Triset (3 Rounds)",
-                        type: "Triset",
-                        rounds: "3 Rounds",
-                        exercises: [
-                            { name: "1a. Bulgarian Split Squat (DBs)", details: "8/leg (controlled descent, powerful drive)" },
-                            { name: "1b. Glute Ham Raise or Nordic Curl", details: "8–10 reps (maintain tension, full range)" },
-                            { name: "1c. Hollow Body Hold", details: "45–60 sec (brace core, lower back pressed to floor)" }
-                        ],
-                        rest: "Rest 90 seconds"
-                    },
-                    conditioning: {
-                        title: "Conditioning – AMRAP 18",
-                        details: "(Pacing: Sustainable, grinding effort. Maintain movement quality.)",
-                        items: [
-                            "10 Sandbag Over Shoulder (moderate-heavy)",
-                            "10 Box Jumps (24/20 inch)",
-                            "15/12 Cal Assault Bike",
-                            "50m Sled Push (heavy)",
-                            "8 Burpee Box Jump Overs"
-                        ]
-                    },
-                    cooldown: {
-                        title: "Cooldown",
-                        items: [
-                            "5 min easy walk",
-                            "Couch Stretch – 90 sec/side",
-                            "Foam Roll Quads, IT Band, Calves – 5 min"
-                        ]
-                    }
+                    sections: [
+                        {
+                            type: "warmUp",
+                            title: "Warm-Up",
+                            items: [
+                                "5 min easy Row",
+                                "3 Rounds:",
+                                "  ◦ 8 Goblet Squats",
+                                "  ◦ 6 Cossack Squats/side",
+                                "  ◦ 10 Banded Glute Bridges",
+                                "  ◦ 10 Good Mornings (empty bar)",
+                                "3x3 Back Squat build-up to working weight"
+                            ]
+                        },
+                        {
+                            type: "strength",
+                            title: "Strength (4 Sets)",
+                            details: "Rest 2 minutes",
+                            exercises: [
+                                { name: "Back Squat", details: "5 reps @ 75–82% 1RM (focus on depth and control)" }
+                            ]
+                        },
+                        {
+                            type: "accessory",
+                            title: "Accessory Triset (3 Rounds)",
+                            details: "Rest 90 seconds",
+                            exercises: [
+                                { name: "1A. Bulgarian Split Squat (DBs)", details: "8/leg (controlled descent, powerful drive)" },
+                                { name: "1B. Glute Ham Raise or Nordic Curl", details: "8–10 reps (maintain tension, full range)" },
+                                { name: "1C. Hollow Body Hold", details: "45–60 sec (brace core, lower back pressed to floor)" }
+                            ]
+                        },
+                        {
+                            type: "conditioning",
+                            title: "Conditioning – AMRAP 18",
+                            details: "(Pacing: Sustainable, grinding effort. Maintain movement quality.)",
+                            items: [
+                                "10 Sandbag Over Shoulder (moderate-heavy)",
+                                "10 Box Jumps (24/20 inch)",
+                                "15/12 Cal Assault Bike",
+                                "50m Sled Push (heavy)",
+                                "8 Burpee Box Jump Overs"
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            title: "Cooldown",
+                            items: [
+                                "5 min easy walk",
+                                "Couch Stretch – 90 sec/side",
+                                "Foam Roll Quads, IT Band, Calves – 5 min"
+                            ]
+                        }
+                    ]
                 },
                 {
                     id: "day4",
                     title: "Day 4 – Running (Hybrid Endurance)",
                     focus: "Hybrid Endurance",
                     introduction: "Day 4 focuses on building hybrid endurance by combining running with other key Hyrox modalities like rowing, skiing, and biking in a continuous effort session. The main goal is to practice smooth transitions between modalities and maintain a steady, sustainable pace throughout.",
-                    warmUp: {
-                        title: "Warm-Up",
-                        items: [
-                            "8 min easy jog",
-                            "Dynamic Prep:",
-                            "  ◦ 10 Walking Lunges with overhead reach",
-                            "  ◦ 10 Leg Swings (forward/backward)",
-                            "  ◦ 10 Arm Circles (forward/backward)",
-                            "3x Strides @ 70–80% effort"
-                        ]
-                    },
-                    mainSet: { 
-                        title: "Main Set – Continuous Effort (35–40 min)",
-                        type: "Continuous Effort",
-                        details: "Perform the following sequence, moving directly from one modality to the next.<br><em>Intent: Build sustained aerobic capacity across multiple Hyrox modalities. Focus on efficient transitions.</em>",
-                        items: [ 
-                            "5 min Run (Zone 2-3 pace)",
-                            "5 min Rower (Zone 2-3 pace)",
-                            "5 min Ski Erg (Zone 2-3 pace)",
-                            "5 min Run (Zone 2-3 pace)",
-                            "5 min Assault Bike (Zone 2-3 pace)",
-                            "Repeat sequence if time allows, or finish with a final 5-10 min run."
-                        ]
-                    },
-                    cooldown: {
-                        title: "Cooldown",
-                        items: [
-                            "5 min easy jog/walk",
-                            "Dynamic Hip Flexor Stretch – 60 sec/side",
-                            "Seated Forward Fold – 90 sec"
-                        ]
-                    }
+                    sections: [
+                        {
+                            type: "warmUp",
+                            title: "Warm-Up",
+                            items: [
+                                "8 min easy jog",
+                                "Dynamic Prep:",
+                                "  ◦ 10 Walking Lunges with overhead reach",
+                                "  ◦ 10 Leg Swings (forward/backward)",
+                                "  ◦ 10 Arm Circles (forward/backward)",
+                                "3x Strides @ 70–80% effort"
+                            ]
+                        },
+                        {
+                            type: "mainSet",
+                            title: "Main Set – Continuous Effort (35–40 min)",
+                            details: "Perform the following sequence, moving directly from one modality to the next.<br><em>Intent: Build sustained aerobic capacity across multiple Hyrox modalities. Focus on efficient transitions.</em>",
+                            items: [
+                                "5 min Run (Zone 2-3 pace)",
+                                "5 min Rower (Zone 2-3 pace)",
+                                "5 min Ski Erg (Zone 2-3 pace)",
+                                "5 min Run (Zone 2-3 pace)",
+                                "5 min Assault Bike (Zone 2-3 pace)",
+                                "Repeat sequence if time allows, or finish with a final 5-10 min run."
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            title: "Cooldown",
+                            items: [
+                                "5 min jog",
+                                "Standing Calf Stretch – 45 sec/leg",
+                                "Figure-Four Stretch – 60 sec/side"
+                            ]
+                        }
+                    ]
                 },
                 {
                     id: "day5",
-                    title: "Day 5 – Strength + Conditioning (Upper Body & Anaerobic Capacity)",
+                    title: "Day 5 – Strength and Conditioning",
                     focus: "Upper Body & Anaerobic Capacity",
                     introduction: "Day 5 targets upper body strength with the Push Press and builds anaerobic capacity through a high-intensity EMOM. The session is designed to push your limits while maintaining good form. Focus on explosive power in the press and quick transitions in the EMOM.",
-                    warmUp: {
-                        title: "Warm-Up (15 min)",
-                        items: [
-                            "5 min easy Rower",
-                            "3 Rounds:",
-                            "  ◦ 10 Band Pull-Aparts",
-                            "  ◦ 8 Scapular Push-Ups",
-                            "  ◦ 6 Tall Kneeling Single-Arm Kettlebell Press/side",
-                            "  ◦ 8 DB Bench Press (light)",
-                            "3x3 Push Press build-up to working weight"
-                        ]
-                    },
-                    strength: {
-                        title: "Strength Superset (4 Rounds)",
-                        type: "Superset",
-                        rounds: "4 Rounds",
-                        exercises: [
-                            { name: "1a. Push Press", details: "4 reps @ 75–85% 1RM (explosive drive, strong lockout)" },
-                            { name: "1b. Pendlay Row (Barbell)", details: "8–10 reps (strict form, chest to floor)" }
-                        ],
-                        rest: "Rest 90–120 sec"
-                    },
-                    accessory: {
-                        title: "Accessory Triset (3 Rounds)",
-                        type: "Triset",
-                        rounds: "3 Rounds",
-                        exercises: [
-                            { name: "1a. Dumbbell Z Press", details: "8 reps (seated, no leg drive, focus on shoulder stability)" },
-                            { name: "1b. Ring Rows (feet elevated if possible)", details: "12–15 reps (full extension, chest to rings)" },
-                            { name: "1c. Overhead Dumbbell Carry", details: "40m (maintain rigid core, stable shoulder)" }
-                        ],
-                        rest: "Rest 60 seconds"
-                    },
-                    conditioning: {
-                        title: "Conditioning – EMOM 21 (7 Rounds)",
-                        details: "(Pacing: High intensity, short recovery. Push hard each minute.)",
-                        items: [ 
-                            "Min 1: 12 Burpee Box Jump Overs (24/20 inch)",
-                            "Min 2: 15/12 Cal Ski Erg",
-                            "Min 3: 10 Push-Ups + 10 Kettlebell Swings (moderate)"
-                        ]
-                    },
-                    cooldown: {
-                        title: "Cooldown",
-                        items: [
-                            "Pec Stretch (doorway or floor) – 90 sec/side",
-                            "Lat Foam Roll – 2 min/side",
-                            "Child's Pose with Lateral Reach – 60 sec/side"
-                        ]
-                    }
+                    sections: [
+                        {
+                            type: "warmUp",
+                            title: "Warm-Up (15 min)",
+                            items: [
+                                "5 min easy Rower",
+                                "3 Rounds:",
+                                "  ◦ 10 Band Pull-Aparts",
+                                "  ◦ 8 Scapular Push-Ups",
+                                "  ◦ 6 Tall Kneeling Single-Arm Kettlebell Press/side",
+                                "  ◦ 8 DB Bench Press (light)",
+                                "3x3 Push Press build-up to working weight"
+                            ]
+                        },
+                        {
+                            type: "strength",
+                            title: "Strength Superset (4 Rounds)",
+                            details: "Rest 90–120 sec",
+                            exercises: [
+                                { name: "1A. Push Press", details: "4 reps @ 75–85% 1RM (explosive drive, strong lockout)" },
+                                { name: "1B. Pendlay Row (Barbell)", details: "8–10 reps (strict form, chest to floor)" }
+                            ]
+                        },
+                        {
+                            type: "accessory",
+                            title: "Accessory Triset (3 Rounds)",
+                            details: "Rest 60 seconds",
+                            exercises: [
+                                { name: "1A. Dumbbell Z Press", details: "8 reps (seated, no leg drive, focus on shoulder stability)" },
+                                { name: "1B. Ring Rows (feet elevated if possible)", details: "12–15 reps (full extension, chest to rings)" },
+                                { name: "1C. Overhead Dumbbell Carry", details: "40m (maintain rigid core, stable shoulder)" }
+                            ]
+                        },
+                        {
+                            type: "conditioning",
+                            title: "Conditioning – EMOM 21 (7 Rounds)",
+                            details: "(Pacing: High intensity, short recovery. Push hard each minute.)",
+                            items: [
+                                "Min 1: 12 Burpee Box Jump Overs (24/20 inch)",
+                                "Min 2: 15/12 Cal Ski Erg",
+                                "Min 3: 10 Push-Ups + 10 Kettlebell Swings (moderate)"
+                            ]
+                        },
+                        {
+                            type: "cooldown",
+                            title: "Cooldown",
+                            items: [
+                                "Pec Stretch (doorway or floor) – 90 sec/side",
+                                "Lat Foam Roll – 2 min/side",
+                                "Child's Pose with Lateral Reach – 60 sec/side"
+                            ]
+                        }
+                    ]
                 }
-            ],
-            overview: {
-                introduction: "Welcome to Week 2 of your Hyrox preparation! This week continues to build upon the foundations of Week 1, with a focus on progressive overload in primary lifts, developing grit through Hyrox-relevant conditioning circuits, and enhancing VO2 max with targeted running sessions. Each day is designed to be around 45-65 minutes and focuses on purposeful movement to prepare you for competition. This overview provides a snapshot of the week's workout distribution.",
-                chartData: {
-                    pieLabels: ["Strength & Conditioning", "Running/Hybrid"],
-                    pieData: [3, 2], 
-                    pieColors: ['#0284c7', '#38bdf8'] // sky-600, sky-400 from Tailwind
-                }
-            }
+            ]
         };
 
         const dayDetailSection = document.getElementById('dayDetailSection');
         const navigationButtons = document.querySelectorAll('#navigation button');
-        // weeklyFocusChart is no longer needed as overview is removed
 
-        function createAccordionItem(title, items, sectionType = 'list') {
-            if (!items || (sectionType === 'list' && items.length === 0)) return '';
-            
-            const contentId = `accordion-content-${title.replace(/\s+/g, '-')}`;
-            let listItemsHtml = '';
+        // Helper to convert index to alphabet letter (A, B, C...)
+        function getAlphabetLetter(index) {
+            return String.fromCharCode(65 + index); // 65 is ASCII for 'A'
+        }
 
-            if (sectionType === 'list') {
-                 listItemsHtml = items.map(item => `<li class="text-slate-600 py-1 pl-4 border-l-2 border-slate-200">${item.replace(/^(◦\s*)/gm, '<span class="ml-2 inline-block">&bull;</span> ')}</li>`).join('');
-            } else if (sectionType === 'exercises') {
-                 listItemsHtml = items.map(ex => `
-                    <li class="py-2">
-                        <strong class="text-sky-700">${ex.name}</strong>
-                        <p class="text-slate-600 text-sm ml-2">${ex.details.replace(/\n/g, '<br>')}</p>
-                    </li>`).join('');
-            }
-
-
+        function createMarchonWorkoutBlock(letter, title, contentHtml) {
             return `
-                <div class="mb-3 border border-slate-200 rounded-lg overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center text-left p-3 bg-slate-100 hover:bg-slate-200 focus:outline-none" aria-expanded="false" aria-controls="${contentId}">
-                        <h3 class="text-lg font-semibold text-sky-700">${title}</h3>
-                        <span class="text-sky-600 text-xl transition-transform duration-300 ease-in-out transform origin-center">&#x25B6;</span> </button>
-                    <div id="${contentId}" class="accordion-content hidden p-3 bg-white">
-                        <ul class="space-y-1">${listItemsHtml}</ul>
-                        ${sectionType === 'exercises' && arguments[3] ? `<p class="text-sm text-slate-500 mt-2"><em>${arguments[3]}</em></p>` : ''}
+                <div class="marchon-workout-block">
+                    <div class="marchon-letter-badge">${letter}</div>
+                    <div class="marchon-workout-content">
+                        <button class="accordion-button" aria-expanded="false" aria-controls="content-${letter}">
+                            <h3>${title}</h3>
+                            <span class="arrow-icon">&#x25B6;</span>
+                        </button>
+                        <div id="content-${letter}" class="accordion-content">
+                            ${contentHtml}
+                        </div>
                     </div>
                 </div>
             `;
         }
 
-
         function renderDayDetails(dayIndex) {
             const day = week2Data.days[dayIndex];
-            let html = `<h2 class="text-2xl font-semibold text-sky-700 mb-1">${day.title}</h2>`;
-            html += `<p class="text-slate-600 mb-6 text-sm"><em>${day.introduction}</em></p>`;
+            let html = `<h2 class="day-section-title">${day.title}</h2>`;
+            html += `<p class="day-introduction">${day.introduction}</p>`;
 
-            if (day.warmUp) html += createAccordionItem(day.warmUp.title, day.warmUp.items);
-            
-            // Handle different structures for Strength/MainSet
-            if (day.strength) { // For Day 1, 3, 5
-                html += createAccordionItem(day.strength.title, day.strength.exercises, 'exercises', day.strength.rest);
-            } else if (day.mainSet) { // For Day 2, 4
-                 let mainSetContentHtml = '';
-                 if(day.mainSet.details) mainSetContentHtml += `<p class="text-slate-600 mb-2 text-sm">${day.mainSet.details.replace(/\n/g, '<br>')}</p>`;
+            let workoutBlocksHtml = '';
+            day.sections.forEach((section, index) => {
+                const letter = getAlphabetLetter(index);
+                let sectionContentHtml = '';
 
-                if (day.mainSet.exercises) { // Day 2 like structure
-                    mainSetContentHtml += `<ul class="space-y-1">` + day.mainSet.exercises.map(ex => `
-                        <li class="py-2">
-                            <strong class="text-sky-700">${ex.name}</strong>
-                            <p class="text-slate-600 text-sm ml-2">${ex.details.replace(/\n/g, '<br>')}</p>
+                if (section.items) { // For Warm-Up, Conditioning (items list)
+                    sectionContentHtml = `<ul>` + section.items.map(item => `<li>${item}</li>`).join('') + `</ul>`;
+                } else if (section.exercises) { // For Strength, Accessory, Main Set (exercises list)
+                    sectionContentHtml = `<ul>` + section.exercises.map(ex => `
+                        <li>
+                            <strong>${ex.name}</strong>
+                            <p class="details">${ex.details.replace(/\n/g, '<br>')}</p>
                         </li>`).join('') + `</ul>`;
-                } else if (day.mainSet.items) { // Day 4 like structure
-                     mainSetContentHtml += `<ul class="space-y-1">` + day.mainSet.items.map(item => `<li class="text-slate-600 py-1 pl-4 border-l-2 border-slate-200">${item}</li>`).join('') + `</ul>`;
                 }
-                
-                const contentId = `accordion-content-${day.mainSet.title.replace(/\s+/g, '-')}`;
-                 html += `
-                    <div class="mb-3 border border-slate-200 rounded-lg overflow-hidden">
-                        <button class="accordion-button w-full flex justify-between items-center text-left p-3 bg-slate-100 hover:bg-slate-200 focus:outline-none" aria-expanded="false" aria-controls="${contentId}">
-                            <h3 class="text-lg font-semibold text-sky-700">${day.mainSet.title}</h3>
-                            <span class="text-sky-600 text-xl transition-transform duration-300 ease-in-out transform origin-center">&#x25B6;</span>
-                        </button>
-                        <div id="${contentId}" class="accordion-content hidden p-3 bg-white">
-                            ${mainSetContentHtml}
-                        </div>
-                    </div>
-                `;
-            }
 
-            if (day.accessory) html += createAccordionItem(day.accessory.title, day.accessory.exercises, 'exercises', day.accessory.rest);
-            if (day.conditioning) {
-                 let conditioningContent = `<p class="text-slate-600 mb-2 text-sm">${day.conditioning.details}</p>`;
-                 conditioningContent += `<ul class="space-y-1">` + day.conditioning.items.map(item => `<li class="text-slate-600 py-1 pl-4 border-l-2 border-slate-200">${item}</li>`).join('') + `</ul>`;
-                 const contentId = `accordion-content-${day.conditioning.title.replace(/\s+/g, '-')}`;
-                 html += `
-                    <div class="mb-3 border border-slate-200 rounded-lg overflow-hidden">
-                        <button class="accordion-button w-full flex justify-between items-center text-left p-3 bg-slate-100 hover:bg-slate-200 focus:outline-none" aria-expanded="false" aria-controls="${contentId}">
-                            <h3 class="text-lg font-semibold text-sky-700">${day.conditioning.title}</h3>
-                            <span class="text-sky-600 text-xl transition-transform duration-300 ease-in-out transform origin-center">&#x25B6;</span>
-                        </button>
-                        <div id="${contentId}" class="accordion-content hidden p-3 bg-white">
-                            ${conditioningContent}
-                        </div>
-                    </div>
-                `;
-            }
-            if (day.cooldown) html += createAccordionItem(day.cooldown.title, day.cooldown.items);
-            
-            dayDetailSection.innerHTML = html;
+                if (section.details) { // Add extra details like rest times or pacing notes
+                    sectionContentHtml += `<p class="details mt-2"><em>${section.details.replace(/\n/g, '<br>')}</em></p>`;
+                }
+
+                workoutBlocksHtml += createMarchonWorkoutBlock(letter, section.title, sectionContentHtml);
+            });
+
+            dayDetailSection.innerHTML = html + workoutBlocksHtml;
             addAccordionListeners();
         }
 
@@ -462,12 +631,12 @@
                 button.addEventListener('click', () => {
                     const content = document.getElementById(button.getAttribute('aria-controls'));
                     const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                    
+
                     button.setAttribute('aria-expanded', !isExpanded);
-                    content.classList.toggle('hidden');
+                    content.style.display = isExpanded ? 'none' : 'block';
                     button.classList.toggle('open');
-                    
-                    const icon = button.querySelector('span');
+
+                    const icon = button.querySelector('.arrow-icon');
                     icon.innerHTML = isExpanded ? '&#x25B6;' : '&#x25BC;'; // ► : ▼
                 });
             });
@@ -475,16 +644,10 @@
 
         navigationButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const targetId = button.dataset.target;
-
                 navigationButtons.forEach(btn => {
-                    btn.classList.remove('active', 'bg-sky-600', 'text-white');
-                    btn.classList.add('bg-slate-200', 'text-slate-700');
+                    btn.classList.remove('active');
                 });
-                button.classList.add('active', 'bg-sky-600', 'text-white');
-                button.classList.remove('bg-slate-200', 'text-slate-700');
-
-                // Since there's only one target now, we just render the day details
+                button.classList.add('active');
                 renderDayDetails(parseInt(button.dataset.day));
             });
         });
