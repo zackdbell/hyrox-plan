@@ -1,106 +1,312 @@
-<div class="space-y-12" id="weeks">
+<section id="hybrid-plan" class="space-y-12">
 
-  <!-- WEEK 1 -->
+  <!-- HERO -->
+  <div class="bg-black text-white rounded-2xl p-8 md:p-12">
+    <h2 class="text-4xl md:text-6xl font-extrabold uppercase tracking-wide leading-tight">Train Run Perform</h2>
+    <p class="mt-2 text-gray-300">Four week hybrid plan. Strength first. Three runs each week.</p>
+  </div>
+
+  <!-- STEP STYLE -->
+  <style>
+    .step{position:relative;padding-left:3.5rem;margin-bottom:1.25rem}
+    .step:before{content:"";position:absolute;left:1.25rem;top:2.25rem;bottom:-.25rem;border-left:3px solid #84cc16}
+    .step:last-child:before{bottom:1rem}
+    .badge{position:absolute;left:.5rem;top:.25rem;display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;border-radius:9999px;background:#84cc16;color:#000;font-weight:800}
+  </style>
+
+  <!-- ========== WEEK 1 ========== -->
   <section class="bg-white rounded-2xl shadow p-6">
-    <h2 class="text-2xl font-bold mb-2">Week 1</h2>
-    <p class="text-sm text-gray-600 mb-4">Build base. Reintroduce volume. Three runs this week.</p>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Day 1 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 1 Strength Priority</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 5 to 8 min easy cardio then hip and shoulder prep</li>
-          <li>Back Squat 4 x 5 at 70 to 75 percent or RPE 7</li>
-          <li>Romanian Deadlift 3 x 8 at RPE 7 then Rest 60 to 90 sec</li>
-          <li>Superset 3 rounds: DB Bench 10 reps and Chest Supported Row 12 reps</li>
-          <li>Accessory circuit 2 rounds: Split Squat 10 per side and Hollow Hold 30 sec</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Long 55 to 65 add one set. Short 30 to 40 use 3 x 5 squat. Home swap Goblet Squat and DB RDL.</p>
+    <header class="flex items-baseline justify-between mb-4">
+      <h3 class="text-2xl font-extrabold uppercase tracking-wide">Week 1</h3>
+      <span class="text-sm text-gray-600">Build base. Reintroduce volume.</span>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Day 1 Strength Lower -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 1 Strength Lower</h4>
+        <p class="text-xs text-gray-600 mb-3">Long 55 to 65. Short 30 to 40. Home swaps listed.</p>
+
+        <div class="step"><span class="badge">A</span>
+          <p class="font-bold uppercase">Primary</p>
+          <p>Back Squat 4 x 5 at 70 to 75 percent or RPE 7</p>
+        </div>
+        <div class="step"><span class="badge">B</span>
+          <p class="font-bold uppercase">Superset</p>
+          <p>Romanian Deadlift 3 x 8 and DB Bench 10</p>
+        </div>
+        <div class="step"><span class="badge">C</span>
+          <p class="font-bold uppercase">Accessory</p>
+          <p>Split Squat 10 per side and Chest Supported Row 12 for 2 rounds</p>
+        </div>
+        <div class="step"><span class="badge">D</span>
+          <p class="font-bold uppercase">Finish</p>
+          <p>Hollow Hold 30 sec and Calf Raise 15 for 2 rounds</p>
+        </div>
+
+        <p class="text-xs text-gray-500">Short track use 3 x 5 on squat. Home swap Goblet Squat and DB RDL.</p>
       </article>
-      <!-- Day 2 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 2 Run Intervals</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 8 to 10 min easy then 4 strides</li>
-          <li>6 x 400 m at RPE 7 to 8 with 200 m jog or 90 sec walk</li>
-          <li>Cool down easy jog 5 to 10 min</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Total 30 to 45. Target 5K pace. Treadmill or outdoor.</p>
+
+      <!-- Day 2 Run Intervals -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 2 Run Intervals</h4>
+        <p class="text-xs text-gray-600 mb-3">Total 30 to 45. Treadmill 1 percent or outdoor.</p>
+
+        <div class="step"><span class="badge">A</span>
+          <p class="font-bold uppercase">Warm Up</p>
+          <p>8 to 10 min easy then 4 strides</p>
+        </div>
+        <div class="step"><span class="badge">B</span>
+          <p class="font-bold uppercase">Main Set</p>
+          <p>6 x 400 m at RPE 7 to 8</p>
+        </div>
+        <div class="step"><span class="badge">C</span>
+          <p class="font-bold uppercase">Recovery</p>
+          <p>200 m jog or 90 sec walk between reps</p>
+        </div>
+        <div class="step"><span class="badge">D</span>
+          <p class="font-bold uppercase">Cool Down</p>
+          <p>5 to 10 min easy</p>
+        </div>
       </article>
-      <!-- Day 3 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 3 Strength Priority</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 5 to 8 min then band shoulder series</li>
-          <li>Deadlift 4 x 4 at 72 to 78 percent or RPE 7</li>
-          <li>Strict Press 4 x 6 at RPE 7</li>
-          <li>Superset 3 rounds: Walking Lunge 12 per side and Hanging Knee Raise 12</li>
-          <li>Finisher 8 min AMRAP: 10 Cal Row and 10 KB Swing</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Long 55 to 65 full volume. Short 30 to 40 cut one set. Home swap DB Deadlift and DB Push Press.</p>
+
+      <!-- Day 3 Strength Upper -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 3 Strength Upper</h4>
+        <p class="text-xs text-gray-600 mb-3">Long 55 to 65. Short 30 to 40.</p>
+
+        <div class="step"><span class="badge">A</span>
+          <p class="font-bold uppercase">Primary</p>
+          <p>Strict Press 4 x 6 at RPE 7</p>
+        </div>
+        <div class="step"><span class="badge">B</span>
+          <p class="font-bold uppercase">Superset</p>
+          <p>Pull Up 6 to 8 and DB Incline Press 10 for 3 rounds</p>
+        </div>
+        <div class="step"><span class="badge">C</span>
+          <p class="font-bold uppercase">Accessory</p>
+          <p>Face Pull 15 and Walking Lunge 12 per side</p>
+        </div>
+        <div class="step"><span class="badge">D</span>
+          <p class="font-bold uppercase">Finish</p>
+          <p>Row 10 cal and KB Swing 10 for 8 min smooth</p>
+        </div>
       </article>
-      <!-- Day 4 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 4 Run Tempo</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 10 min easy then 4 strides</li>
-          <li>Tempo run 20 min at RPE 6</li>
-          <li>Cool down 5 to 8 min easy</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Total 35 to 45. Hold 10K effort.</p>
+
+      <!-- Day 4 Run Tempo -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 4 Run Tempo</h4>
+        <p class="text-xs text-gray-600 mb-3">Total 35 to 45. Near 10K effort.</p>
+
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>10 min easy then 4 strides</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>Tempo 20 min at RPE 6 steady</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Focus</p><p>Tall posture and quick feet</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 8 min easy</p></div>
       </article>
-      <!-- Day 5 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 5 Conditioning (Optional)</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 5 min bike</li>
-          <li>EMOM 20: Thrusters, Step Overs, Cal Bike, Plank</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Long 55 to 65 add EMOM 10. Short 30 to 40 EMOM 16. Home swap step ups and bodyweight squats.</p>
+
+      <!-- Day 5 Conditioning Optional -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 5 Mixed Conditioning Optional</h4>
+        <p class="text-xs text-gray-600 mb-3">RPE 6 to 7 smooth.</p>
+
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Piece</p><p>EMOM 20 Thrusters 12. Step Overs 12. Bike 12 cal. Plank 45 sec</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Track</p><p>Long add EMOM 10 repeat. Short EMOM 16</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Home</p><p>Air Squat and Step Up swaps</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Note</p><p>Keep breathing relaxed</p></div>
       </article>
-      <!-- Day 6 -->
-      <article class="rounded-xl border p-4">
-        <h3 class="font-semibold mb-1">Day 6 Easy Long Run (Optional)</h3>
-        <ul class="list-disc pl-5 space-y-1">
-          <li>Warm up 5 to 10 min</li>
-          <li>Run 45 to 60 min at RPE 3 to 4</li>
-          <li>Add strides every 10 min</li>
-        </ul>
-        <p class="text-xs text-gray-600 mt-2">Total 45 to 65. Walk run 4:1 if needed.</p>
+
+      <!-- Day 6 Run Easy Long Optional -->
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 6 Run Easy Long Optional</h4>
+        <p class="text-xs text-gray-600 mb-3">Build aerobic base.</p>
+
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>5 to 10 min easy</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>45 to 60 min at RPE 3 to 4</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Strides</p><p>20 sec relaxed every 10 min</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>Walk 3 to 5 min and quick mobility</p></div>
       </article>
     </div>
-    <div class="mt-4 text-sm"><p><span class="font-semibold">Progression notes:</span> Add 5–10% load or volume next week.</p></div>
+
+    <p class="mt-4 text-sm"><span class="font-semibold">Progression:</span> add 5 to 10 percent total work next week. Intervals extend. Squat and press small load bump.</p>
   </section>
 
-  <!-- WEEK 2 -->
+  <!-- ========== WEEK 2 ========== -->
   <section class="bg-white rounded-2xl shadow p-6">
-    <h2 class="text-2xl font-bold mb-2">Week 2</h2>
-    <p class="text-sm text-gray-600 mb-4">Build strength and aerobic support. Three runs again.</p>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Strength / Run Days follow same card pattern -->
-      <!-- [CONTENT AS BUILT IN WEEK 2 ABOVE] -->
+    <header class="flex items-baseline justify-between mb-4">
+      <h3 class="text-2xl font-extrabold uppercase tracking-wide">Week 2</h3>
+      <span class="text-sm text-gray-600">Build strength and aerobic support.</span>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 1 Strength Lower</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Back Squat 5 x 5 at 72 to 78 percent or RPE 7 to 8</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Superset</p><p>DB Bench 4 x 8 and Barbell Row 10</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>Reverse Lunge 10 per side and Side Plank 30 sec per side</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Finish</p><p>Row easy 8 to 10 min</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 2 Run Intervals</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>10 min easy and drills</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>5 x 800 m at RPE 7 to 8</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Recovery</p><p>400 m jog or 2 min walk</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 10 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 3 Strength Upper</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Deadlift 4 x 5 at 73 to 80 percent or RPE 7 to 8</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Secondary</p><p>Strict Press 5 x 5 at RPE 7</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>Bulgarian Split Squat 10 per side and Lat Pulldown 12</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Finish</p><p>Bike easy 10 min</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 4 Run Tempo</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>10 min easy and 4 strides</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>Tempo 25 min at RPE 6 to 7</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Focus</p><p>Even pace and tall posture</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 8 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 5 Mixed Conditioning Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">AMRAP 16</p><p>KB Swing 12. Burpee 10. Run 200 m or Row 12 cal</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Effort</p><p>RPE 7 smooth</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Track</p><p>Long add AMRAP 12 after 5 min easy spin</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Home</p><p>March in place 60 sec for the run</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 6 Run Easy Long Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Main Set</p><p>50 to 60 min at RPE 3 to 4</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Strides</p><p>6 x 15 sec with 60 sec walk</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Modify</p><p>Walk 1 min every 10 if needed</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>Walk and stretch</p></div>
+      </article>
     </div>
-    <div class="mt-4 text-sm"><p><span class="font-semibold">Progression notes:</span> Small load bump. Longer run work.</p></div>
+
+    <p class="mt-4 text-sm"><span class="font-semibold">Progression:</span> small load bump. Intervals longer next week. Tempo grows.</p>
   </section>
 
-  <!-- WEEK 3 -->
+  <!-- ========== WEEK 3 ========== -->
   <section class="bg-white rounded-2xl shadow p-6">
-    <h2 class="text-2xl font-bold mb-2">Week 3</h2>
-    <p class="text-sm text-gray-600 mb-4">Peak week. Higher quality work. Hold form.</p>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- [CONTENT AS BUILT IN WEEK 3 ABOVE] -->
+    <header class="flex items-baseline justify-between mb-4">
+      <h3 class="text-2xl font-extrabold uppercase tracking-wide">Week 3</h3>
+      <span class="text-sm text-gray-600">Peak quality. Hold form.</span>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 1 Strength Lower</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Back Squat 5 x 3 at 80 to 85 percent or RPE 8</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Secondary</p><p>Barbell Hip Thrust 4 x 8 at RPE 7</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>DB Incline Press 10 and Chest Supported Row 12</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Core</p><p>Dead Bug 10 per side for 3 rounds</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 2 Run Threshold</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>12 min easy and drills</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>3 x 1 mile at RPE 7 to 8. Rest 3 min</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Pacing</p><p>Near 10K effort with even splits</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>8 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 3 Strength Upper</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Deadlift 5 x 3 at 80 to 85 percent or RPE 8</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Secondary</p><p>Push Press 4 x 5 at RPE 7 to 8</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>Rear Foot Split Squat 10 per side and Chin Up 6 to 8</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Finish</p><p>Bike easy 10 min</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 4 Run Tempo Choice</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Option A</p><p>Tempo 30 min at RPE 6 to 7</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Option B</p><p>3 x 10 min at RPE 7 with 2 min easy</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Focus</p><p>Relax hands and shoulders. Hold cadence</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 8 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 5 Mixed Modal Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">For Time Cap 16</p><p>21 15 9 DB Snatch alt and Box Jump or Step Up. Row 250 m after each round</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Effort</p><p>RPE 7 to 8 smooth cycle speed</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Track</p><p>Long add easy bike 12 min after. Short cap 12</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Home</p><p>Step Ups and backpack snatch</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 6 Run Easy Long Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Main Set</p><p>60 to 65 min at RPE 3 to 4</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Strides</p><p>6 x 20 sec with 60 sec walk</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Modify</p><p>Walk 1 min every 10 if needed</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>Walk and stretch</p></div>
+      </article>
     </div>
-    <div class="mt-4 text-sm"><p><span class="font-semibold">Progression notes:</span> Highest load week. Next week deload.</p></div>
+
+    <p class="mt-4 text-sm"><span class="font-semibold">Progression:</span> highest load week. Next week deload. Keep three runs.</p>
   </section>
 
-  <!-- WEEK 4 -->
+  <!-- ========== WEEK 4 ========== -->
   <section class="bg-white rounded-2xl shadow p-6">
-    <h2 class="text-2xl font-bold mb-2">Week 4</h2>
-    <p class="text-sm text-gray-600 mb-4">Deload week at eighty to ninety percent volume. Keep rhythm.</p>
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- [CONTENT AS BUILT IN WEEK 4 ABOVE] -->
-    </div>
-    <div class="mt-4 text-sm"><p><span class="font-semibold">Progression notes:</span> Restart next block with retests and load bumps.</p></div>
-  </section>
+    <header class="flex items-baseline justify-between mb-4">
+      <h3 class="text-2xl font-extrabold uppercase tracking-wide">Week 4</h3>
+      <span class="text-sm text-gray-600">Deload at 80 to 90 percent volume.</span>
+    </header>
 
-</div>
+    <div class="grid md:grid-cols-2 gap-10">
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 1 Strength Lower</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Back Squat 3 x 5 at 65 to 70 percent or RPE 6</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Secondary</p><p>DB Bench 3 x 8 at RPE 6</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>Hip Hinge 12 and Side Plank 30 sec per side</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Finish</p><p>Easy spin 8 to 10 min</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 2 Run Intervals</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>8 to 10 min easy and strides</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>5 x 400 m at RPE 7</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Recovery</p><p>200 m jog or 90 sec walk</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 8 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 3 Strength Upper</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Primary</p><p>Deadlift 3 x 5 at 65 to 70 percent or RPE 6</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Secondary</p><p>Strict Press 3 x 6 at RPE 6</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Accessory</p><p>Step Down 10 per side and Ring Row 12</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Finish</p><p>Bike easy 10 min</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 4 Run Tempo</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Warm Up</p><p>8 to 10 min easy</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Main Set</p><p>Tempo 20 min at RPE 6 cruise</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Focus</p><p>Relaxed breathing and even pace</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Cool Down</p><p>5 to 8 min easy</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 5 Aerobic Support Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Piece</p><p>Bike or Row 30 min at RPE 4</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Surge</p><p>Every 5 min add 20 sec hard then return to steady</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Long</p><p>Extend to 40 min if time allows</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Home</p><p>Incline walk brisk pace</p></div>
+      </article>
+
+      <article>
+        <h4 class="text-lg font-black uppercase mb-1">Day 6 Run Easy Optional</h4>
+        <div class="step"><span class="badge">A</span><p class="font-bold uppercase">Main Set</p><p>45 min at RPE 3 to 4</p></div>
+        <div class="step"><span class="badge">B</span><p class="font-bold uppercase">Finish</p><p>Light mobility 5 min</p></div>
+        <div class="step"><span class="badge">C</span><p class="font-bold uppercase">Feel</p><p>Cadence light and relaxed</p></div>
+        <div class="step"><span class="badge">D</span><p class="font-bold uppercase">Note</p><p>Stop for sharp pain or dizziness</p></div>
+      </article>
+    </div>
+
+    <p class="mt-4 text-sm"><span class="font-semibold">Next Block:</span> restart with small load bumps. Keep three runs. Plan a retest lift or timed run in week 2 of the next block.</p>
+  </section>
+</section>
