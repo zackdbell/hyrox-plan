@@ -1,7 +1,37 @@
-  <!-- ===== WEEK 5 ===== -->
-  <details class="week">
+<!-- ===== HYBRID PLAN — 4 WEEKS ELITE QUALITY ===== -->
+<section id="hybrid-plan" class="space-y-8">
+
+  <!-- FONT + THEME -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+    :root{ --brand:#39FF14; }
+    #hybrid-plan, #hybrid-plan *{
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    .brand-heading{ text-transform:uppercase; letter-spacing:.02em; font-weight:900; }
+    details.week{ border-radius:1rem; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.06); overflow:hidden; }
+    summary.week-head{ display:flex; align-items:baseline; justify-content:space-between; gap:.75rem; cursor:pointer; padding:1rem 1.25rem; }
+    summary.week-head::-webkit-details-marker{ display:none; }
+    .chev{ transition:transform .2s ease; font-weight:900; }
+    details[open] .chev{ transform:rotate(90deg); }
+    .kicker{ font-size:.8rem; color:#6b7280; }
+    .step{ position:relative; padding-left:3.5rem; margin-bottom:1.25rem; }
+    .step:before{ content:""; position:absolute; left:1.25rem; top:2.25rem; bottom:-.25rem; border-left:3px solid var(--brand); }
+    .step:last-child:before{ bottom:1rem; }
+    .badge{ position:absolute; left:.5rem; top:.25rem; display:inline-flex; align-items:center; justify-content:center; width:2.2rem; height:2.2rem; border-radius:9999px; background:var(--brand); color:#000; font-weight:900; }
+    .note{ font-size:.75rem; color:#6b7280; }
+  </style>
+
+  <!-- HERO -->
+  <div class="bg-black text-white rounded-2xl p-8 md:p-12">
+    <h2 class="brand-heading text-4xl md:text-6xl leading-tight">TRAIN RUN PERFORM</h2>
+    <p class="mt-2 text-gray-300">Four week hybrid cycle. Three runs each week. Trap bar and single leg work keep the legs strong for race prep.</p>
+  </div>
+
+  <!-- ===== WEEK 1 ===== -->
+  <details class="week" open>
     <summary class="week-head">
-      <div><h3 class="brand-heading text-2xl">WEEK 5</h3><span class="kicker">New cycle. Trap bar focus. Total per day 50 to 70 minutes.</span></div>
+      <div><h3 class="brand-heading text-2xl">WEEK 1</h3><span class="kicker">Rebuild positions. Bring volume back online. Total per day 50 to 70 minutes.</span></div>
       <span class="chev text-gray-700">›</span>
     </summary>
     <div class="p-6 pt-0">
@@ -10,84 +40,84 @@
         <!-- DAY 1 LOWER STRENGTH TRAP BAR -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 1 LOWER STRENGTH</h4>
-          <p class="note mb-3">Trap bar is main lift. Single leg work stays in for lean legs and control.</p>
+          <p class="note mb-3">Trap bar is primary. Lean legs and strong single leg work stay in the mix.</p>
 
           <div class="step"><span class="badge">A</span>
             <p class="brand-heading text-sm">TRAP BAR DEADLIFT</p>
-            <p>5 x 5 at RPE 7. Rest 2 to 3 minutes. Clean lockout.</p>
+            <p>5 x 5 at RPE 7. Rest 2 to 3 minutes. Brace hard and stand tall every rep.</p>
           </div>
           <div class="step"><span class="badge">B</span>
-            <p class="brand-heading text-sm">FRONT FOOT ELEVATED SPLIT SQUAT</p>
-            <p>3 x 8 per side. Slow down for two seconds. Rest 90 seconds.</p>
+            <p class="brand-heading text-sm">STEP UP</p>
+            <p>3 x 8 per side. Box around knee height. Full foot on the box. Control down.</p>
           </div>
           <div class="step"><span class="badge">C</span>
-            <p class="brand-heading text-sm">STEP UP</p>
-            <p>3 x 10 per side. Drive the knee and stand tall. Rest 75 seconds.</p>
+            <p class="brand-heading text-sm">LEG PRESS</p>
+            <p>3 x 12 moderate. Feet shoulder width. Push through mid foot and heel.</p>
           </div>
           <div class="step"><span class="badge">D</span>
-            <p class="brand-heading text-sm">CORE</p>
-            <p>Dead bug 12 per side. Side plank 25 seconds per side. Three rounds.</p>
+            <p class="brand-heading text-sm">HAMSTRING AND CORE</p>
+            <p>Hamstring curl 12. Dead bug 10 per side. Three rounds. Rest 45 seconds.</p>
           </div>
         </article>
 
         <!-- DAY 2 RUN INTERVALS -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 2 RUN INTERVALS</h4>
-          <p class="note mb-3">Rebuild speed without max effort.</p>
+          <p class="note mb-3">Touch pace near ten K without going all out.</p>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>10 minutes easy. Drills. Four strides.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>8 x 90 seconds at RPE 7. Recover 2 minutes easy jog.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>6 x 2 minutes at RPE 7 with 2 minutes easy jog between.</p></div>
           <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 to 10 minutes easy.</p></div>
         </article>
 
         <!-- DAY 3 UPPER STRENGTH -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 3 UPPER STRENGTH</h4>
-          <p class="note mb-3">Pressing strength with solid pull volume.</p>
+          <p class="note mb-3">Pressing strength and simple pulling volume.</p>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>5 x 5 at 70 to 75 percent. Rest 2 minutes.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">SEATED STRICT PRESS</p><p>4 x 6 at RPE 7.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">SEATED STRICT PRESS</p><p>4 x 6 at RPE 7. Rest 90 seconds.</p></div>
           <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">ROW SUPERSET</p><p>4 rounds. Chest supported row 10. DB incline press 10. Rest 75 seconds.</p></div>
-          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">ARMS</p><p>Curl 12. Rope pressdown 12. Three rounds. Rest 45 seconds.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">ARMS</p><p>Curl 12. Rope pressdown 12. Three rounds. Rest 45 to 60 seconds.</p></div>
         </article>
 
         <!-- DAY 4 RUN TEMPO -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO</h4>
-          <p class="note mb-3">Controlled work near ten K feel.</p>
+          <p class="note mb-3">Bring back steady work around ten K feel.</p>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>12 minutes easy. Four strides.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>25 minutes tempo at RPE 6. Smooth and even pace.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy jog.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>2 x 12 minutes at RPE 6 to 7 with 2 minutes easy jog between.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy jog. Walk 2 minutes.</p></div>
         </article>
 
         <!-- DAY 5 HYBRID ENGINE -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 5 HYBRID ENGINE</h4>
-          <p class="note mb-3">Support running without beating the legs up.</p>
+          <p class="note mb-3">Support the run with controlled engine work.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">EMOM 20</p><p>Min 1 bike 14 cals. Min 2 KB swing 18. Min 3 box step over 14. Min 4 plank 45 seconds.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">ACCESSORY</p><p>Hamstring curl 12. Copenhagen plank 20 seconds per side. Three rounds.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">EMOM 20</p><p>Minute 1 bike 14 cals. Minute 2 KB swing 18. Minute 3 box step over 14. Minute 4 plank 45 seconds.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">ACCESSORY</p><p>Nordic or assisted hamstring curl 8 slow. Copenhagen plank 20 seconds per side. Three rounds.</p></div>
         </article>
 
         <!-- DAY 6 LONG RUN -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 6 LONG RUN</h4>
-          <p class="note mb-3">Aerobic base stays the priority.</p>
+          <p class="note mb-3">Time on feet with relaxed pace.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 60 to 65 minutes at RPE 3 to 4.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STRIDES</p><p>6 x 20 seconds relaxed with 60 seconds walk.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 60 minutes at RPE 3 to 4. Short walk minute every 15 if you like.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STRIDES</p><p>6 x 20 seconds fast but smooth with 60 seconds walk.</p></div>
         </article>
 
       </div>
-      <p class="note mt-4"><span class="font-semibold">Load plan:</span> if trap bar feels smooth next week move to heavier fours.</p>
+      <p class="note mt-4"><span class="font-semibold">Load plan:</span> if trap bar and bench feel clean, nudge weight up next week. If not, keep load and add one rep on the last set.</p>
     </div>
   </details>
 
-  <!-- ===== WEEK 6 ===== -->
+  <!-- ===== WEEK 2 ===== -->
   <details class="week">
     <summary class="week-head">
-      <div><h3 class="brand-heading text-2xl">WEEK 6</h3><span class="kicker">Progress strength and threshold. Total per day 55 to 75 minutes.</span></div>
+      <div><h3 class="brand-heading text-2xl">WEEK 2</h3><span class="kicker">Progress strength and threshold. Total per day 55 to 75 minutes.</span></div>
       <span class="chev text-gray-700">›</span>
     </summary>
     <div class="p-6 pt-0">
@@ -96,34 +126,22 @@
         <!-- DAY 1 LOWER STRENGTH -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 1 LOWER STRENGTH</h4>
-          <p class="note mb-3">Trap bar load climbs. Keep positions steady.</p>
+          <p class="note mb-3">Trap bar load climbs. Single leg stays honest.</p>
 
-          <div class="step"><span class="badge">A</span>
-            <p class="brand-heading text-sm">TRAP BAR DEADLIFT</p>
-            <p>6 x 4 at RPE 7 to 8. Rest 2 to 3 minutes.</p>
-          </div>
-          <div class="step"><span class="badge">B</span>
-            <p class="brand-heading text-sm">STEP UP</p>
-            <p>4 x 8 per side. Use a box that lets you stay tall.</p>
-          </div>
-          <div class="step"><span class="badge">C</span>
-            <p class="brand-heading text-sm">LEG PRESS</p>
-            <p>3 x 12 moderate. Full foot pressure on the platform.</p>
-          </div>
-          <div class="step"><span class="badge">D</span>
-            <p class="brand-heading text-sm">CORE</p>
-            <p>Pallof press 12 per side. Reverse crunch 15. Three rounds.</p>
-          </div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">TRAP BAR DEADLIFT</p><p>6 x 4 at RPE 7 to 8. Rest 2 to 3 minutes.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">FRONT FOOT ELEVATED SPLIT SQUAT</p><p>3 x 8 per side. Slow down for two seconds. Rest 90 seconds.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">LEG PRESS</p><p>4 x 10. Last two reps feel strong but not grindy.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">CALVES AND CORE</p><p>Standing calf raise 15. Side plank 25 seconds per side. Three rounds.</p></div>
         </article>
 
         <!-- DAY 2 RUN INTERVALS THRESHOLD -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 2 RUN INTERVALS</h4>
-          <p class="note mb-3">Move closer to race pace work.</p>
+          <p class="note mb-3">Work near tempo and half marathon feel.</p>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>12 minutes easy. Drills. Four strides.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>5 x 4 minutes at RPE 7 with 2 minutes easy jog.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>10 minutes easy.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>4 x 6 minutes at RPE 7 with 2 minutes easy jog.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 to 10 minutes easy.</p></div>
         </article>
 
         <!-- DAY 3 UPPER STRENGTH -->
@@ -131,47 +149,46 @@
           <h4 class="brand-heading text-lg mb-1">DAY 3 UPPER STRENGTH</h4>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>6 x 4 at 75 to 80 percent. Rest 2 minutes.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STRICT PRESS</p><p>5 x 5 at RPE 7.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STRICT PRESS</p><p>5 x 5 at RPE 7 to 8.</p></div>
           <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">ROW SUPERSET</p><p>4 rounds. Single arm row 10 per side. DB flat press 10. Rest 75 seconds.</p></div>
-          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">ARMS</p><p>Cable curl 12. Dip variation 8. Two to three rounds.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">CHEST FINISH</p><p>DB fly 12 slow. Push up 15. Two rounds.</p></div>
         </article>
 
         <!-- DAY 4 RUN TEMPO -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO</h4>
-          <p class="note mb-3">Tempo broken into working blocks.</p>
+          <p class="note mb-3">Unbroken tempo for steady work.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>12 minutes easy.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>3 x 10 minutes at RPE 6 to 7 with 2 minutes easy jog between.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>12 minutes easy. Four strides.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>30 minutes at RPE 6 to 7. Even pacing. Last five minutes feel strong, not frantic.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy jog.</p></div>
         </article>
 
-        <!-- DAY 5 HYBRID CAPACITY -->
+        <!-- DAY 5 HYBRID ENGINE -->
         <article>
-          <h4 class="brand-heading text-lg mb-1">DAY 5 HYBRID CAPACITY</h4>
-          <p class="note mb-3">Support work for engine and legs.</p>
+          <h4 class="brand-heading text-lg mb-1">DAY 5 HYBRID ENGINE</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">AMRAP 18</p><p>Row 12 cals. KB swing 16. Box step over 12. Keep RPE around 7.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">CORE</p><p>Ab wheel 10. Plank 40 seconds. Three rounds.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">AMRAP 18</p><p>Row 12 cals. KB swing 16. Box step over 12. Keep RPE around 7. Move smooth, no sprints.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">CORE</p><p>Pallof press 12 per side. Plank 40 seconds. Three rounds.</p></div>
         </article>
 
         <!-- DAY 6 LONG RUN -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 6 LONG RUN</h4>
-          <p class="note mb-3">Longer time on feet.</p>
+          <p class="note mb-3">Build toward marathon prep with calm volume.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 70 to 75 minutes at RPE 3 to 4. Take fuel once if over 60 minutes.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 70 minutes at RPE 3 to 4. Take some fuel once if you cross 60 minutes.</p></div>
         </article>
 
       </div>
-      <p class="note mt-4"><span class="font-semibold">Load plan:</span> if energy feels high add one set on trap bar or leg press only.</p>
+      <p class="note mt-4"><span class="font-semibold">Load plan:</span> if trap bar and bench feel solid, bump weight three to five percent next week. If fatigue is high, keep loads and pull one set off instead.</p>
     </div>
   </details>
 
-  <!-- ===== WEEK 7 ===== -->
+  <!-- ===== WEEK 3 ===== -->
   <details class="week">
     <summary class="week-head">
-      <div><h3 class="brand-heading text-2xl">WEEK 7</h3><span class="kicker">Peak week for this block. Quality and control. </span></div>
+      <div><h3 class="brand-heading text-2xl">WEEK 3</h3><span class="kicker">Peak for this block. Strong lower work and sharper running. Total per day 60 to 80 minutes.</span></div>
       <span class="chev text-gray-700">›</span>
     </summary>
     <div class="p-6 pt-0">
@@ -180,20 +197,21 @@
         <!-- DAY 1 LOWER HEAVY -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 1 LOWER HEAVY</h4>
-          <p class="note mb-3">Heaviest trap bar work before we pull back.</p>
+          <p class="note mb-3">Heaviest trap bar of the block. Keep quality first.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">TRAP BAR DEADLIFT</p><p>7 x 3 at RPE 8. Leave one rep in the tank.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">REAR FOOT ELEVATED SPLIT SQUAT</p><p>3 x 8 per side moderate. Smooth down and drive up.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">STEP UP</p><p>3 x 10 per side. Focus on strong push through the working leg.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">TRAP BAR DEADLIFT</p><p>7 x 3 at RPE 8. Rest 2 to 3 minutes. Leave one rep in the tank on every set.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">REAR FOOT ELEVATED SPLIT SQUAT</p><p>3 x 8 per side. Use a load that feels strong but stable.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">STEP UP</p><p>3 x 10 per side. Same box height each week so you can feel the progress.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">LEG PRESS</p><p>3 x 10. Smooth tempo, no bouncing at the bottom.</p></div>
         </article>
 
-        <!-- DAY 2 RUN THRESHOLD -->
+        <!-- DAY 2 RUN VO2 STYLE -->
         <article>
-          <h4 class="brand-heading text-lg mb-1">DAY 2 RUN THRESHOLD</h4>
-          <p class="note mb-3">Work in the zone you will feel on race day.</p>
+          <h4 class="brand-heading text-lg mb-1">DAY 2 RUN VO2</h4>
+          <p class="note mb-3">Shorter work closer to five K feel.</p>
 
           <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>15 minutes easy. Drills. Four strides.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>3 x 12 minutes at RPE 7 with 3 minutes easy jog between.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>5 x 3 minutes at RPE 8 with 2 minutes easy jog. Pacing should be strong but repeatable.</p></div>
           <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>10 minutes easy.</p></div>
         </article>
 
@@ -201,45 +219,47 @@
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 3 UPPER HEAVY</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>7 x 3 at RPE 8.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>7 x 3 at 80 to 85 percent. Rest 2 minutes.</p></div>
           <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">PUSH PRESS</p><p>5 x 4 at RPE 8.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">ROW SUPERSET</p><p>4 rounds. Chin up 5. Chest supported row 12. Rest 75 seconds.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">PULL SUPERSET</p><p>4 rounds. Weighted chin up 5. Chest supported row 12. Rest 75 seconds.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">ARM TRI SET</p><p>3 rounds. Incline curl 12. Rope pressdown 12. Lateral raise 15. Rest 60 seconds.</p></div>
         </article>
 
-        <!-- DAY 4 RUN TEMPO -->
+        <!-- DAY 4 RUN TEMPO CHOICE -->
         <article>
-          <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO</h4>
-          <p class="note mb-3">Sustained work to tie the week together.</p>
+          <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO CHOICE</h4>
+          <p class="note mb-3">Pick the version that fits how you feel.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>12 minutes easy.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>30 minutes tempo at RPE 6 to 7. Aim for steady pacing.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>10 minutes easy.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">OPTION A</p><p>Continuous tempo 35 minutes at RPE 6 to 7.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">OPTION B</p><p>3 x 12 minutes at RPE 7 with 2 minutes easy between.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy run. Walk 2 minutes.</p></div>
         </article>
 
         <!-- DAY 5 HYBRID CAPACITY -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 5 HYBRID CAPACITY</h4>
+          <p class="note mb-3">Simple mixed piece that supports engine strength.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">INTERVAL CIRCUIT 20</p><p>Every 4 minutes for 5 rounds: row 10 cals, burpee 10, KB clean 10 per side. RPE around 7.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">FOR TIME CAP 20</p><p>Row 750. DB snatch alt 20 total. Box step over 20. Row 500. Snatch 16. Step over 16. Row 250. Snatch 12. Step over 12. Keep RPE near 8 but keep movements clean.</p></div>
         </article>
 
         <!-- DAY 6 LONG RUN EXTENDED -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 6 LONG RUN EXTENDED</h4>
-          <p class="note mb-3">Longest long run of this mini block.</p>
+          <p class="note mb-3">Longest run in this block to keep marathon prep moving.</p>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 80 minutes at RPE 3 to 4. Fuel once or twice based on feel.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 80 minutes at RPE 3 to 4. Take fuel around 35 to 40 minutes and again if needed.</p></div>
         </article>
 
       </div>
-      <p class="note mt-4"><span class="font-semibold">Peak note:</span> this is the heaviest week. If recovery feels off remove the last set on trap bar or bench.</p>
+      <p class="note mt-4"><span class="font-semibold">Peak note:</span> this is the highest load week. If trap bar or bench speed slows hard, drop the last set and keep quality over volume.</p>
     </div>
   </details>
 
-  <!-- ===== WEEK 8 ===== -->
+  <!-- ===== WEEK 4 ===== -->
   <details class="week">
     <summary class="week-head">
-      <div><h3 class="brand-heading text-2xl">WEEK 8</h3><span class="kicker">Deload and absorb. Volume around 80 percent.</span></div>
+      <div><h3 class="brand-heading text-2xl">WEEK 4</h3><span class="kicker">Deload and absorb. Volume around eighty percent.</span></div>
       <span class="chev text-gray-700">›</span>
     </summary>
     <div class="p-6 pt-0">
@@ -249,32 +269,35 @@
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 1 LOWER DELOAD</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">TRAP BAR DEADLIFT</p><p>4 x 5 at RPE 6. Crisp speed.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STEP UP</p><p>2 x 8 per side light to moderate.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">LEG PRESS</p><p>2 x 12 easy. Focus on full range.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">TRAP BAR DEADLIFT</p><p>4 x 5 at RPE 6. Crisp speed and clean positions.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">STEP UP</p><p>2 x 8 per side light to moderate. Pause for a second at the top.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">LEG PRESS</p><p>2 x 12 easy. Full range and smooth tempo.</p></div>
+          <div class="step"><span class="badge">D</span><p class="brand-heading text-sm">CORE</p><p>Bird dog 10 per side. Side plank 20 seconds per side. Two rounds.</p></div>
         </article>
 
         <!-- DAY 2 RUN INTERVALS SHARP -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 2 RUN INTERVALS SHARP</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>6 x 60 seconds at RPE 7. Walk 75 seconds between. Form clean and relaxed.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">WARM UP</p><p>10 minutes easy. Drills. Four strides.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">MAIN</p><p>6 x 90 seconds at RPE 7 with 90 seconds walk or easy jog. Smooth and relaxed.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">COOL DOWN</p><p>10 minutes easy.</p></div>
         </article>
 
         <!-- DAY 3 UPPER DELOAD -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 3 UPPER DELOAD</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>4 x 5 at RPE 6.</p></div>
-          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">ROW</p><p>2 x 12 moderate.</p></div>
-          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">ARMS</p><p>2 rounds. Curl 12. Pressdown 12.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">BENCH PRESS</p><p>4 x 5 at around 65 to 70 percent. One second pause on chest.</p></div>
+          <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">ROW</p><p>2 x 12 moderate. Focus on shoulder position.</p></div>
+          <div class="step"><span class="badge">C</span><p class="brand-heading text-sm">ARMS</p><p>2 rounds. Curl 12. Pressdown 12. Easy effort.</p></div>
         </article>
 
         <!-- DAY 4 RUN TEMPO MAINTAIN -->
         <article>
-          <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO</h4>
+          <h4 class="brand-heading text-lg mb-1">DAY 4 RUN TEMPO MAINTAIN</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>20 minutes at RPE 6. Smooth cadence and relaxed breathing.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>20 minutes at RPE 6. This should feel smooth and controlled, not like a test.</p></div>
           <div class="step"><span class="badge">B</span><p class="brand-heading text-sm">COOL DOWN</p><p>8 minutes easy jog.</p></div>
         </article>
 
@@ -282,17 +305,20 @@
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 5 EASY ENGINE</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">ZONE TWO</p><p>Bike or row 30 to 40 minutes at RPE 4. Keep it easy.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">ZONE TWO</p><p>Bike or row 30 to 40 minutes at RPE 4. Steady breathing and easy pace.</p></div>
         </article>
 
         <!-- DAY 6 LONG RUN EASY -->
         <article>
           <h4 class="brand-heading text-lg mb-1">DAY 6 LONG RUN EASY</h4>
 
-          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 50 to 55 minutes at RPE 3 to 4. Relaxed cadence.</p></div>
+          <div class="step"><span class="badge">A</span><p class="brand-heading text-sm">MAIN</p><p>Easy run 55 to 60 minutes at RPE 3 to 4. This should feel like you could talk the whole time.</p></div>
         </article>
 
       </div>
-      <p class="note mt-4"><span class="font-semibold">Next block:</span> begin adding true marathon pace segments into tempo and long runs while keeping trap bar in heavier triples.</p>
+      <p class="note mt-4"><span class="font-semibold">Next block:</span> start to fold true marathon pace work into tempo and long runs while keeping trap bar as the main lower strength move in heavier triples and fours.</p>
     </div>
   </details>
+
+</section>
+<!-- ===== END HYBRID PLAN ===== -->
